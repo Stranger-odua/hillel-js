@@ -83,7 +83,7 @@ Object.defineProperties(todos, {
    },
 
    todosCountWithStatus: {
-      get: function () {
+      get () {
          const totalTodosCount = Object.entries(todos.todoList).length
          const todoList = Object.values(todos.todoList)
 

@@ -25,8 +25,8 @@ Object.defineProperties(todos, {
       }
    },
 
-   getTodoList: {
-      value: function () {
+   list: {
+      get () {
          return this.todoList
       }
    },
@@ -82,8 +82,8 @@ Object.defineProperties(todos, {
       }
    },
 
-   todosCount: {
-      value: function () {
+   todosCountWithStatus: {
+      get: function () {
          const totalTodosCount = Object.entries(todos.todoList).length
          const todoList = Object.values(todos.todoList)
 
@@ -105,11 +105,12 @@ Object.defineProperties(todos, {
    }
 })
 
-console.log(todos.getTodoList())
-// todos.addTodo()
-// todos.deleteTodo()
-// todos.editTodoText()
-// todos.editTodoStatus()
-// console.log(todos.todosCount())
+
+console.log(todos.list)
+todos.addTodo()
+todos.deleteTodo()
+todos.editTodoText()
+todos.editTodoStatus()
+console.log(todos.todosCountWithStatus)
 
 console.log(Object.getOwnPropertyDescriptors(todos))

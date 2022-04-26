@@ -32,9 +32,7 @@ Object.defineProperties(todos, {
    },
 
    addTodo: {
-      value: function () {
-         const reqTodoName = prompt('Write the new task name:')
-         const todoText = prompt('Write the new task text:')
+      value: function (reqTodoName, todoText) {
          if ( !this.todoList[reqTodoName]) {
             this.todoList[reqTodoName] = {
                todoText,
@@ -47,8 +45,7 @@ Object.defineProperties(todos, {
    },
 
    deleteTodo: {
-      value: function () {
-         const reqTodoName = prompt('Write the name of the task to delete it:')
+      value: function (reqTodoName) {
          if (this.todoList[reqTodoName]) {
             delete this.todoList[reqTodoName]
          } else {
@@ -58,9 +55,7 @@ Object.defineProperties(todos, {
    },
 
    editTodoText: {
-      value: function () {
-         const reqTodoName = prompt('Write the name of the task to edit it:')
-         const newTodoText = prompt('Write new task text:')
+      value: function (reqTodoName, newTodoText) {
          const task = this.todoList[reqTodoName]
          if (task) {
             task['todoText'] = newTodoText
@@ -71,8 +66,7 @@ Object.defineProperties(todos, {
    },
 
    editTodoStatus: {
-      value: function () {
-         const reqTodoName = prompt('Write the name of the task to edit status:')
+      value: function (reqTodoName) {
          const task = this.todoList[reqTodoName]
          if (task) {
             task['isComplete'] = !task['isComplete']
@@ -105,12 +99,11 @@ Object.defineProperties(todos, {
    }
 })
 
-
 console.log(todos.list)
-todos.addTodo()
-todos.deleteTodo()
-todos.editTodoText()
-todos.editTodoStatus()
+todos.addTodo(prompt('Write the new task name:'), prompt('Write the new task text:'))
+todos.deleteTodo(prompt('Write the name of the task to delete it:'))
+todos.editTodoText(prompt('Write the name of the task to edit it:'), prompt('Write new task text:'))
+todos.editTodoStatus(prompt('Write the name of the task to edit status:'))
 console.log(todos.todosCountWithStatus)
 
 console.log(Object.getOwnPropertyDescriptors(todos))

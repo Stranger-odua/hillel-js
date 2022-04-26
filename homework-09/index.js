@@ -12,98 +12,98 @@ TODO Вам нужно оформить это, как объект с мето�
 const todos = {}
 
 Object.defineProperties(todos, {
-   todoList: {
-      value: {
-         'Do homework': {
-            todoText: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
-            isComplete: true
-         },
-         'Do something': {
-            todoText: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
-            isComplete: false
-         }
-      }
-   },
-
-   list: {
-      get () {
-         return this.todoList
-      }
-   },
-
-   addTodo: {
-      value: function (reqTodoName, todoText) {
-         if ( !this.todoList[reqTodoName]) {
-            this.todoList[reqTodoName] = {
-               todoText,
-               isComplete: false
+    todoList: {
+        value: [
+            {
+                name: 'Do homework',
+                todoText: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+                isComplete: true
+            },
+            {
+                name: 'Do something',
+                todoText: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
+                isComplete: false
             }
-         } else {
-            alert('This task already exists!')
-         }
-      }
-   },
+        ],
+        writable: true
+    },
 
-   deleteTodo: {
-      value: function (reqTodoName) {
-         if (this.todoList[reqTodoName]) {
-            delete this.todoList[reqTodoName]
-         } else {
-            alert('No such task exists!')
-         }
-      }
-   },
+    list: {
+        get() {
+            return this.todoList
+        }
+    },
 
-   editTodoText: {
-      value: function (reqTodoName, newTodoText) {
-         const task = this.todoList[reqTodoName]
-         if (task) {
-            task['todoText'] = newTodoText
-         } else {
-            alert('No such task exists!')
-         }
-      }
-   },
+    addTodo: {
+        value: function (reqTodoName, todoText) {
+            const findName = this.todoList.find((todo) => todo.name === reqTodoName)
 
-   editTodoStatus: {
-      value: function (reqTodoName) {
-         const task = this.todoList[reqTodoName]
-         if (task) {
-            task['isComplete'] = !task['isComplete']
-         } else {
-            alert('No such task exists!')
-         }
-      }
-   },
-
-   todosCountWithStatus: {
-      get () {
-         const totalTodosCount = Object.entries(todos.todoList).length
-         const todoList = Object.values(todos.todoList)
-
-         const completeTodosCount = todoList.reduce((acc, todo) => {
-            if (todo.isComplete) {
-               acc += 1
+            if ( !findName) {
+                const newTodo = {
+                    name: reqTodoName,
+                    todoText,
+                    isComplete: false
+                }
+                this.todoList.push(newTodo)
             }
-            return acc
-         }, 0)
+        }
+    },
 
-         const allTodosStatus = {
-            total: totalTodosCount,
-            complete: completeTodosCount,
-            notComplete: totalTodosCount - completeTodosCount
-         }
+    deleteTodo: {
+        value: function (reqTodoName) {
+            this.todoList = this.todoList.filter((todo) => todo.name !== reqTodoName)
+        }
+    },
 
-         return allTodosStatus
-      }
-   }
+    editTodoText: {
+        value: function (reqTodoName, newTodoText) {
+            const todo = this.todoList.find((todo) => todo.name === reqTodoName)
+
+            if  (todo) {
+                todo.todoText = newTodoText
+            }
+        }
+    },
+
+    editTodoStatus: {
+        value: function (reqTodoName) {
+            const todo = this.todoList.find((todo) => todo.name === reqTodoName)
+
+            if  (todo) {
+                todo.isComplete = !todo.isComplete
+            }
+        }
+    },
+
+    todosCountWithStatus: {
+        get() {
+            const totalTodosCount = Object.entries(todos.todoList).length
+            const todoList = Object.values(todos.todoList)
+
+            const completeTodosCount = todoList.reduce((acc, todo) => {
+                if (todo.isComplete) {
+                    acc += 1
+                }
+                return acc
+            }, 0)
+
+            const allTodosStatus = {
+                total: totalTodosCount,
+                complete: completeTodosCount,
+                notComplete: totalTodosCount - completeTodosCount
+            }
+
+            return allTodosStatus
+        }
+    }
 })
 
-console.log(todos.list)
+console.log('todos.list ', todos.list)
 todos.addTodo(prompt('Write the new task name:'), prompt('Write the new task text:'))
 todos.deleteTodo(prompt('Write the name of the task to delete it:'))
 todos.editTodoText(prompt('Write the name of the task to edit it:'), prompt('Write new task text:'))
 todos.editTodoStatus(prompt('Write the name of the task to edit status:'))
 console.log(todos.todosCountWithStatus)
 
+console.log('todos.list ', todos.list)
 console.log(Object.getOwnPropertyDescriptors(todos))

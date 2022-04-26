@@ -16,11 +16,11 @@ Object.defineProperties(todos, {
       value: {
          'Do homework': {
             todoText: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
-            isComplite: true
+            isComplete: true
          },
          'Do something': {
             todoText: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
-            isComplite: false
+            isComplete: false
          }
       }
    },
@@ -38,7 +38,7 @@ Object.defineProperties(todos, {
          if ( !this.todoList[reqTodoName]) {
             this.todoList[reqTodoName] = {
                todoText,
-               isComplite: false
+               isComplete: false
             }
          } else {
             alert('This task already exists!')
@@ -75,7 +75,7 @@ Object.defineProperties(todos, {
          const reqTodoName = prompt('Write the name of the task to edit status:')
          const task = this.todoList[reqTodoName]
          if (task) {
-            task['isComplite'] = !task['isComplite']
+            task['isComplete'] = !task['isComplete']
          } else {
             alert('No such task exists!')
          }
@@ -87,8 +87,8 @@ Object.defineProperties(todos, {
          const totalTodosCount = Object.entries(todos.todoList).length
          const todoList = Object.values(todos.todoList)
 
-         const compliteTodosCount = todoList.reduce((acc, todo) => {
-            if (todo.isComplite) {
+         const completeTodosCount = todoList.reduce((acc, todo) => {
+            if (todo.isComplete) {
                acc += 1
             }
             return acc
@@ -96,8 +96,8 @@ Object.defineProperties(todos, {
 
          const allTodosStatus = {
             total: totalTodosCount,
-            complite: compliteTodosCount,
-            notComplite: totalTodosCount - compliteTodosCount
+            complete: completeTodosCount,
+            notComplete: totalTodosCount - completeTodosCount
          }
 
          return allTodosStatus

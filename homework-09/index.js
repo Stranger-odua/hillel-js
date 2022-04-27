@@ -12,7 +12,7 @@ TODO Вам нужно оформить это, как объект с мето�
 const todos = {}
 
 Object.defineProperties(todos, {
-    todoList: {
+    list: {
         value: [
             {
                 name: 'Do homework',
@@ -24,19 +24,12 @@ Object.defineProperties(todos, {
                 todoText: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit.',
                 isComplete: false
             }
-        ],
-        writable: true
-    },
-
-    list: {
-        get() {
-            return this.todoList
-        }
+        ]
     },
 
     addTodo: {
         value: function (reqTodoName, todoText) {
-            const findName = this.todoList.find((todo) => todo.name === reqTodoName)
+            const findName = this.list.find((todo) => todo.name === reqTodoName)
 
             if ( !findName) {
                 const newTodo = {
@@ -44,20 +37,24 @@ Object.defineProperties(todos, {
                     todoText,
                     isComplete: false
                 }
-                this.todoList.push(newTodo)
+                this.list.push(newTodo)
             }
         }
     },
 
     deleteTodo: {
         value: function (reqTodoName) {
-            this.todoList = this.todoList.filter((todo) => todo.name !== reqTodoName)
+            this.list.forEach((todo, i) => {
+                if (reqTodoName === todo.name) {
+                    this.list.splice(i, 1)
+                }
+            })
         }
     },
 
     editTodoText: {
         value: function (reqTodoName, newTodoText) {
-            const todo = this.todoList.find((todo) => todo.name === reqTodoName)
+            const todo = this.list.find((todo) => todo.name === reqTodoName)
 
             if  (todo) {
                 todo.todoText = newTodoText
@@ -67,7 +64,7 @@ Object.defineProperties(todos, {
 
     editTodoStatus: {
         value: function (reqTodoName) {
-            const todo = this.todoList.find((todo) => todo.name === reqTodoName)
+            const todo = this.list.find((todo) => todo.name === reqTodoName)
 
             if  (todo) {
                 todo.isComplete = !todo.isComplete
@@ -77,20 +74,18 @@ Object.defineProperties(todos, {
 
     todosCountWithStatus: {
         get() {
-            const totalTodosCount = Object.entries(todos.todoList).length
-            const todoList = Object.values(todos.todoList)
-
-            const completeTodosCount = todoList.reduce((acc, todo) => {
+            const completeTodosCount = this.list.reduce((acc, todo) => {
                 if (todo.isComplete) {
                     acc += 1
                 }
+
                 return acc
             }, 0)
 
             const allTodosStatus = {
-                total: totalTodosCount,
+                total: this.list.length,
                 complete: completeTodosCount,
-                notComplete: totalTodosCount - completeTodosCount
+                notComplete: this.list.length - completeTodosCount
             }
 
             return allTodosStatus
@@ -105,5 +100,5 @@ todos.editTodoText(prompt('Write the name of the task to edit it:'), prompt('Wri
 todos.editTodoStatus(prompt('Write the name of the task to edit status:'))
 console.log(todos.todosCountWithStatus)
 
-console.log('todos.list ', todos.list)
 console.log(Object.getOwnPropertyDescriptors(todos))
+console.log('todos.list ', todos.list)

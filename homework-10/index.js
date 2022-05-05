@@ -6,7 +6,6 @@ function myFunc(number) {
     return number ** this.num;
 }
 
-
 function bind(fn, ctx, ...args) {
     ctx.fn = fn;
 

@@ -16,7 +16,7 @@ function bind(fn, ctx, ...args) {
     return () => fnResult;
 }
 
-// версия 2 с добавлением нового свойства и последующим его удалением
+// версия 2 без использования rest и spread
 // function bind(fn, ctx) {
 //     const args = [].slice.call(arguments, 2);
 //     const uuid = Math.random().toString().slice(2);
@@ -27,7 +27,8 @@ function bind(fn, ctx, ...args) {
 //     return () => fnResult;
 // }
 
-// версия 3 с копированием исходного объекта
+// версия 3 без использования rest и spread и с копированием исходного объекта контекста,
+// вместо его мутации и последующего удаления добавленного свойства
 // function bind(fn, ctx) {
 //     const args = [].slice.call(arguments, 2);
 //     const copyCtxObj = Object.assign({}, ctx);

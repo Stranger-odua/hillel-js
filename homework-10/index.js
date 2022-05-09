@@ -8,9 +8,11 @@ function myFunc(num1, num2) {
 
 function bind(fn, ctx) {
     const args = [].slice.call(arguments, 2);
-    const fnResult = fn.apply(ctx, args);
 
-    return () => fnResult;
+    return function () {
+        return fn.apply(ctx, args);
+    };
 }
 
 console.log(bind(myFunc, myObj, 1, 2)());
+// console.log(bind(myFunc, myObj, 1, 2)()());

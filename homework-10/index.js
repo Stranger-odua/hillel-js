@@ -1,18 +1,21 @@
-const myObj = {
-    num: 3
-};
-
-function myFunc(num1, num2) {
-    return num1 + num2 + this.num;
-}
-
 function bind(fn, ctx) {
-    const args = [].slice.call(arguments, 2);
+    const parentArgs = [].slice.call(arguments, 2);
 
     return function () {
-        return fn.apply(ctx, args);
+        const childArgs = [].slice.call(arguments);
+
+        return fn.apply(ctx, [parentArgs, childArgs]);
     };
 }
 
-console.log(bind(myFunc, myObj, 1, 2)());
-// console.log(bind(myFunc, myObj, 1, 2)()());
+function foo(a, b) {
+    console.log(a, b, this);
+}
+
+const obj = {
+    number: 42
+};
+
+bind(foo, obj, 4, 5)();
+bind(foo, obj, 4)(5);
+bind(foo, obj)(4, 5);

@@ -12,16 +12,16 @@ function simpleCache(fn) {
 
         if (foundArguments) {
             return foundArguments.result;
-        } else {
-            if (cache.length >= 10) {
-                cache.splice(0, 1);
-                cache.push(newCacheItem);
-                return newCacheItem.result;
-            } else {
-                cache.push(newCacheItem);
-                return newCacheItem.result;
-            }
         }
+
+        if (cache.length >= 10) {
+            cache.splice(0, 1);
+            cache.push(newCacheItem);
+            return newCacheItem.result;
+        }
+
+        cache.push(newCacheItem);
+        return newCacheItem.result;
     };
 }
 

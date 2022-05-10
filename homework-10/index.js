@@ -1,10 +1,10 @@
 function bind(fn, ctx) {
-    const parentArgs = [].slice.call(arguments, 2);
+    const bindArgs = [].slice.call(arguments, 2);
 
     return function () {
-        const childArgs = [].slice.call(arguments);
+        const args = bindArgs.concat([].slice.call(arguments));
 
-        return fn.apply(ctx, [parentArgs, childArgs]);
+        return fn.apply(ctx, args);
     };
 }
 

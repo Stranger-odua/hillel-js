@@ -37,10 +37,10 @@ function advancedCounter(initialCount, step) {
 }
 
 const createCounter = advancedCounter(100, 5);
-let reset = createCounter.resetCounter = () => {
+createCounter.resetCounter = () => {
     this.count = 0
 }
-const resetCounter = reset.bind(advancedCounter)
+const resetCounter = createCounter.resetCounter.bind(advancedCounter)
 
 console.log(createCounter());
 console.log(createCounter());

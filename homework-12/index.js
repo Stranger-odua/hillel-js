@@ -6,7 +6,7 @@ function accumulator() {
     let count;
 
     return (number) => {
-        if ( !count) {
+        if (!count) {
             count = number;
             return count;
         }
@@ -30,13 +30,8 @@ console.log(someAcc(3));
 function counter(initialCount, step) {
     let count = initialCount;
 
-    function calculation() {
-        return count += step
-    }
-
-    calculation.reset = function () {
-        count = initialCount
-    }
+    const calculation = () => count += step
+    calculation.reset = () => count = initialCount
 
     return calculation
 }

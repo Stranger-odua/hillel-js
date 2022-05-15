@@ -31,10 +31,11 @@ function counter(initialCount, step) {
     let count = initialCount;
 
     function calculation() {
-        calculation.reset = function () {
-            count = initialCount
-        }
         return count += step
+    }
+
+    calculation.reset = function () {
+        count = initialCount
     }
 
     return calculation

@@ -30,14 +30,14 @@ console.log(someAcc(3));
 function counter(initialCount, step) {
     let count = initialCount;
 
-    function calculatedResult() {
-        calculatedResult.reset = function () {
+    function calculation() {
+        calculation.reset = function () {
             count = initialCount
         }
         return count += step
     }
 
-    return calculatedResult
+    return calculation
 }
 
 const someCounter = counter(100, 5);

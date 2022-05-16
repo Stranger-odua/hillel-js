@@ -6,7 +6,7 @@ function accumulator() {
     let count;
 
     return (number) => {
-        if ( !count) {
+        if (!count) {
             count = number;
             return count;
         }
@@ -23,23 +23,23 @@ console.log(someAcc(2));
 console.log(someAcc(3));
 
 
-
 // Task 2
 //Это не все. Возьмите счетчик, который, мы писали в классе и добавьте ему
 // возможность задавать начальное значение и шаг счетчика при инициализации и
-// методах для сброса к начальному значению. Помните, что функция - это объект)
+// метод для сброса к начальному значению. Помните, что функция - это объект)
 function counter(initialCount, step) {
-    this.count = initialCount;
+    let count = initialCount;
 
-    return () => this.count += step;
+    const calculation = () => count += step
+    calculation.reset = () => count = initialCount
+
+    return calculation
 }
 
 const someCounter = counter(100, 5);
-someCounter.reset = () => this.count = 0
-const resetSomeCounter = someCounter.reset.bind(counter)
 
 console.log(someCounter());
 console.log(someCounter());
-resetSomeCounter()
+someCounter.reset()
 console.log(someCounter());
 console.log(someCounter());

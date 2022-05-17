@@ -1,18 +1,22 @@
 function findPalindrome(number) {
     let steps = 0;
 
+    if (number < 10) {
+        return {
+            result: number,
+            steps,
+        };
+    }
+
+    if (number < 0) {
+        return `Can't be smaller than 0`
+    }
+
     function search() {
         try {
             number = BigInt(number);
             let firstPart = number;
             let reversePart = 0n;
-
-            if (number < 10) {
-                return {
-                    result: number,
-                    steps,
-                };
-            }
 
             const cutLastSymbol = (num) => BigInt(num.toString().slice(0, -1));
 
@@ -50,3 +54,5 @@ console.log(findPalindrome(96));
 console.log(findPalindrome(79));
 console.log(findPalindrome(167));
 console.log(findPalindrome(89));
+
+// console.log(findPalindrome(196));

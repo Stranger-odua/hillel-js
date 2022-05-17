@@ -1,67 +1,39 @@
-// Поработаем с числовым палиндромом) Числовой палиндром — это натуральное число,
-// которое читается слева направо и справа налево одинаково. Иначе говоря, отличается
-// симметрией записи (расположения цифр), причём число знаков может быть как чётным, так и нечётным.
-//
-// Палиндром можно получить как результат операций над другими числами. Возьмём любое
-// натуральное число и сложим его с обращённым числом, то есть записанным теми же цифрами,
-// но в обратном порядке. Проделаем то же действие с получившейся суммой и будем повторять
-// его до тех пор, пока не образуется палиндром. Иногда достаточно сделать всего один шаг
-// (например, 312 + 213 = 525), но, как правило, требуется не менее двух. Скажем, число 96
-// порождает палиндром 4884 только на четвёртом шаге....
-//
-// В результате я хочу, чтоб вы написали функцию, которая будет возвращать объект, где будет
-// свойство result - и это будет палиндром и свойство steps - это число вызовов до нахождения палиндрома
-
-
 function findPalindrome(number) {
-    // if (number % 10 === 0) return false;
-    // if (number < 10) return true
-    // if (number < 0) return false;
-
     let steps = 0;
-    const doReverse = (num) => Number.parseInt([...num.toString()].reverse().join(''));
-    const reverseNumber = doReverse(number);
 
-    try {
-        const isEvenLength = number.toString().length % 2
+    function search() {
+        let firstPart = number;
+        let reversePart = 0;
 
-        if (isEvenLength) {
-            console.log(isEvenLength);
+        while (firstPart > reversePart) {
+            reversePart *= 10;
+            reversePart += firstPart % 10;
+            firstPart = Math.trunc(firstPart / 10);
+        }
+
+        if (firstPart === reversePart || firstPart === Math.trunc(reversePart / 10)) {
             return {
-                palindrome: number,
-                steps
+                result: number,
+                steps,
             };
         }
 
+        const reverseNumber = Number(number.toString().split('').reverse().join(''));
         number += reverseNumber;
         ++steps;
 
-        // findPalindrome(number);
+        if (number > 2 ** 53 - 1 || reverseNumber > 2 ** 53 - 1) {
+            return `restriction: "Number" type value can't be bigger than 2 ** 53 - 1`;
+        }
 
-    } catch (e) {
-        console.log(e, 'ОШИБКА !!!!!!!');
+        try {
+            return search(number);
+        } catch (e) {
+            return `Error, ${e.message}, call stack overflow on ${steps} iteration`;
+        }
     }
+
+    return search();
 }
 
-console.log('РЕЗУЛЬТАТ: ', findPalindrome(96));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+console.log(findPalindrome(196));

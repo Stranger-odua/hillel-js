@@ -3,7 +3,7 @@ function findPalindrome(number) {
 
     if (number < 10) {
         return {
-            result: BigInt(number),
+            result: number,
             steps,
         };
     }

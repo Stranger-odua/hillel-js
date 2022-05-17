@@ -9,7 +9,7 @@ function findPalindrome(number) {
     }
 
     if (number < 0) {
-        return `Can't be smaller than 0`
+        return `Can't be smaller than 0`;
     }
 
     function search() {
@@ -26,7 +26,7 @@ function findPalindrome(number) {
                 firstPart = cutLastSymbol(firstPart);
             }
 
-            const arePartsIsEqual = firstPart === reversePart || firstPart === cutLastSymbol(reversePart)
+            const arePartsIsEqual = firstPart === reversePart || firstPart === cutLastSymbol(reversePart);
 
             if (arePartsIsEqual) {
                 return {
@@ -38,6 +38,7 @@ function findPalindrome(number) {
             const reverseNumber = BigInt(number.toString().split('').reverse().join(''));
             number += reverseNumber;
             ++steps;
+
             return search(number);
         } catch (e) {
             return e.message;

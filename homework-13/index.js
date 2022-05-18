@@ -29,7 +29,7 @@ function findPalindrome(number) {
             return search(nextNumber);
 
         } catch (e) {
-            return `Error: ${e.message}`
+            return `Error: ${e.message} on ${steps} step.`
         }
     }
 

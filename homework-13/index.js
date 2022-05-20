@@ -1,67 +1,47 @@
-// Поработаем с числовым палиндромом) Числовой палиндром — это натуральное число,
-// которое читается слева направо и справа налево одинаково. Иначе говоря, отличается
-// симметрией записи (расположения цифр), причём число знаков может быть как чётным, так и нечётным.
-//
-// Палиндром можно получить как результат операций над другими числами. Возьмём любое
-// натуральное число и сложим его с обращённым числом, то есть записанным теми же цифрами,
-// но в обратном порядке. Проделаем то же действие с получившейся суммой и будем повторять
-// его до тех пор, пока не образуется палиндром. Иногда достаточно сделать всего один шаг
-// (например, 312 + 213 = 525), но, как правило, требуется не менее двух. Скажем, число 96
-// порождает палиндром 4884 только на четвёртом шаге....
-//
-// В результате я хочу, чтоб вы написали функцию, которая будет возвращать объект, где будет
-// свойство result - и это будет палиндром и свойство steps - это число вызовов до нахождения палиндрома
-
-
 function findPalindrome(number) {
-    // if (number % 10 === 0) return false;
-    // if (number < 10) return true
-    // if (number < 0) return false;
-
     let steps = 0;
-    const doReverse = (num) => Number.parseInt([...num.toString()].reverse().join(''));
-    const reverseNumber = doReverse(number);
+    number = BigInt(number);
 
-    try {
-        const isEvenLength = number.toString().length % 2
+    function search(number) {
+        try {
+            if (number < 0) {
+                return `Number can't be smaller than 0`;
+            }
 
-        if (isEvenLength) {
-            console.log(isEvenLength);
-            return {
-                palindrome: number,
-                steps
-            };
+            if (isPalindrome(number)) {
+                return {
+                    result: number,
+                    steps,
+                };
+            }
+
+            function isPalindrome(number) {
+                let num = number.toString();
+                if (num.length === 1) return true;
+                if (num.length === 2) return num[0] === num[1];
+                if (num[0] === num.slice(-1)) return isPalindrome(num.slice(1, -1));
+                return false;
+            }
+
+            ++steps;
+            const reverseNumber = BigInt(number.toString().split('').reverse().join(''));
+            const nextNumber = number + reverseNumber;
+            return search(nextNumber);
+
+        } catch (e) {
+            return `Error: ${e.message} on ${steps} step.`
         }
-
-        number += reverseNumber;
-        ++steps;
-
-        // findPalindrome(number);
-
-    } catch (e) {
-        console.log(e, 'ОШИБКА !!!!!!!');
     }
+
+    return search(number);
 }
 
-console.log('РЕЗУЛЬТАТ: ', findPalindrome(96));
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+console.log(findPalindrome(9));
+console.log(findPalindrome(12));
+console.log(findPalindrome(59));
+console.log(findPalindrome(88));
+console.log(findPalindrome(96));
+console.log(findPalindrome(79));
+console.log(findPalindrome(167));
+console.log(findPalindrome(89));
+console.log(findPalindrome(196));

@@ -9,7 +9,7 @@ function Student(name, surname, yearOfBirth) {
         return new Date().getFullYear() - this.yearOfBirth;
     };
 
-    this.averageGrade = function (grades = this.grades) {
+    this.averageGrade = function (grades=this.grades) {
         return grades.reduce((acc, grade) => {
             acc += grade;
             return acc;
@@ -17,93 +17,70 @@ function Student(name, surname, yearOfBirth) {
     };
 
     this.present = function () {
-        if (this.attendance.length < 10) {
-            this.attendance.push(true);
+        if (this.attendance.length <= 10) {
+            this.attendance[this.attendance.length] = true;
         }
     };
 
     this.absent = function () {
         if (this.attendance.length < 10) {
-            this.attendance.push(false);
+            this.attendance[this.attendance.length] = false;
         }
     };
 
     this.mark = function (grade) {
         if (grade >= 0 && grade <= 10 && this.grades.length < 10) {
-            this.grades.push(grade);
+            this.grades[this.grades.length] = grade;
         }
     };
 
     this.summary = function () {
         const averageAttendance = this.averageGrade(this.attendance);
 
-        console.log(this.averageGrade(), averageAttendance);
-
         if (this.averageGrade() > 9 && averageAttendance > 0.9) {
             return 'Ути какой молодчинка!';
         }
-
-        if (this.averageGrade() < 9 && averageAttendance < 0.9) {
+        // больше либо равно использую умышленно, чтобы обработать все варианты оценок/посещений
+        if (this.averageGrade() <= 9 && averageAttendance <= 0.9) {
             return 'Редиска!';
         }
 
-        if (this.averageGrade() < 9 || averageAttendance < 0.9) {
+        if (this.averageGrade() <= 9 || averageAttendance <= 0.9) {
             return 'Норм, но можно лучше';
         }
     };
 }
 
+
 const student1 = new Student('Taras', 'Shevchenko', '1814');
 const student2 = new Student('Ivan', 'Franko', '1856');
 
-function checkMethods(students) {
-    let num = 4;
+console.log(student1.surname);
+console.log('age', student1.age());
+student1.absent();
+student1.absent();
+student1.mark(8);
+student1.mark(8);
+console.log('averageGrade', student1.averageGrade());
+console.log('attendance', student1.attendance);
+console.log('summary:', student1.summary());
 
-    students.forEach((st) => {
-        if (st.name === 'Ivan') {
-            num = 6;
-        }
-        console.log(st.name);
-        console.log(st.surname);
-        console.log('age', st.age());
-        st.present();
-        st.present();
-        st.present();
-        st.present();
-        st.present();
-        st.present();
-        st.present();
-        st.present();
-        st.absent();
-        st.absent();
-        st.absent();
-        st.mark(num + 4);
-        st.mark(num + 4);
-        st.mark(num + 4);
-        st.mark(num + 4);
-        st.mark(num + 4);
-        st.mark(num + 4);
-        st.mark(num + 4);
-        st.mark(num + 4);
-        st.mark(num + 4);
-        st.mark(num + 4);
-        console.log('averageGrade', st.averageGrade());
-        console.log('summary:', st.summary());
-        console.log('- -- end st -- -');
-    });
-}
+console.log('-- -- -- -- -- -- -- -- -- -- -- --');
 
-checkMethods([student1, student2]);
-
-console.log(student1.grades);
-console.log(student2.grades);
-
-
-
-// Student.prototype.fullName = function () {
-//     return this.surname + ' ' + this.name;
-// };
-//
-// Student.prototype.sentEmail = function (text) {
-//     return text + ' ' + ' send!';
-// };
+console.log(student2.surname);
+console.log('age', student2.age());
+student2.present();
+student2.absent();
+student2.present();
+student2.absent();
+student2.present();
+student2.absent();
+student2.present();
+student2.absent();
+student2.present();
+student2.absent();
+student2.mark(10);
+student2.mark(10);
+console.log('averageGrade', student2.averageGrade());
+console.log('attendance', student2.attendance);
+console.log('summary:', student2.summary());

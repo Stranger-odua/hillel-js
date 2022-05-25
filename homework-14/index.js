@@ -2,10 +2,8 @@ function Student(name, surname, yearOfBirth) {
 	this.name = name;
 	this.surname = surname;
 	this.yearOfBirth = yearOfBirth;
-	this.attendance = [];
-	this.attendance.length = 10;
-	this.grades = [];
-	this.grades.length = 10;
+	this.attendance = new Array(10)
+	this.grades = new Array(10)
 }
 
 Student.prototype.age = function () {

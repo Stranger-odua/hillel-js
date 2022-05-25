@@ -2,8 +2,8 @@ function Student(name, surname, yearOfBirth) {
 	this.name = name;
 	this.surname = surname;
 	this.yearOfBirth = yearOfBirth;
-	this.attendance = new Array(10)
-	this.grades = new Array(10)
+	this.attendance = new Array(10);
+	this.grades = new Array(10);
 }
 
 Student.prototype.age = function () {
@@ -12,43 +12,32 @@ Student.prototype.age = function () {
 
 Student.prototype.averageGrade = function (grades = this.grades) {
 	let gradesCount = 0;
-	let gradesTotalValue = 0;
 
-	for (let i = 0; i < grades.length; i++) {
-
-		if (grades[i] !== undefined) {
+	return grades.reduce((acc, el) => {
+		if (el !== undefined) {
 			++gradesCount;
-			gradesTotalValue += grades[i];
+			acc += el
 		}
-	}
+		return acc
 
-	return gradesTotalValue / gradesCount;
+	}, 0) / gradesCount
 };
 
 Student.prototype.present = function () {
-	for (let i = 0; i < this.attendance.length; i++) {
-		if (this.attendance[i] === undefined) {
-			this.attendance[i] = true;
-			break;
-		}
+	if (this.attendance.findIndex((el) => el === undefined) !== -1) {
+		this.attendance[this.attendance.findIndex((el) => el === undefined)] = true
 	}
 };
 
 Student.prototype.absent = function () {
-	for (let i = 0; i < this.attendance.length; i++) {
-		if (this.attendance[i] === undefined) {
-			this.attendance[i] = false;
-			break;
-		}
+	if (this.attendance.findIndex((el) => el === undefined) !== -1) {
+		this.attendance[this.attendance.findIndex((el) => el === undefined)] = false
 	}
 };
 
 Student.prototype.mark = function (grade) {
-	for (let i = 0; i < this.grades.length; i++) {
-		if (this.grades[i] === undefined && grade >= 0 && grade <= 10) {
-			this.grades[i] = grade;
-			break;
-		}
+	if (this.grades.findIndex((el) => el === undefined) !== -1) {
+		this.grades[this.grades.findIndex((el) => el === undefined)] = grade
 	}
 };
 
@@ -83,7 +72,7 @@ student1.absent();
 student1.absent();
 student1.absent();
 student1.absent();
-student1.absent();
+student1.present();
 student1.absent();
 student1.absent();
 student1.mark(8);
@@ -123,7 +112,7 @@ student2.mark(10);
 student2.mark(10);
 student2.mark(10);
 student2.mark(10);
-student2.mark(7);
+student2.mark(8);
 console.log('averageGrade', student2.averageGrade());
 console.log('summary:', student2.summary());
 console.log('student2 ', student2);

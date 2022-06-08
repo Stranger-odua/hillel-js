@@ -3,14 +3,14 @@ function Student(name, surname, yearOfBirth) {
 	this.surname = surname;
 	this.yearOfBirth = yearOfBirth;
 	this.attendance = new Array(10);
-	this.grades = new Array(10);
+	this.marks = new Array(10);
 }
 
 Student.prototype.age = function () {
 	return new Date().getFullYear() - this.yearOfBirth;
 };
 
-Student.prototype.averageGrade = function (grades = this.grades) {
+Student.prototype.averageGrade = function (grades = this.marks) {
 	let gradesCount = 0;
 
 	return grades.reduce((acc, el) => {
@@ -35,9 +35,9 @@ Student.prototype.absent = function () {
 	}
 };
 
-Student.prototype.mark = function (grade) {
-	if (this.grades.findIndex((el) => el === undefined) !== -1) {
-		this.grades[this.grades.findIndex((el) => el === undefined)] = grade
+Student.prototype.mark = function (mark) {
+	if (this.marks.findIndex((el) => el === undefined) !== -1) {
+		this.marks[this.marks.findIndex((el) => el === undefined)] = mark
 	}
 };
 

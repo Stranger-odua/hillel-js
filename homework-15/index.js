@@ -17,7 +17,7 @@ const films = [
 ];
 
 function GroupFilmsByCategory(films) {
-	const groupedFilms = films.reduce((filmsList, film) => {
+	this.groupedFilms = films.reduce((filmsList, film) => {
 		const categories = film['category'];
 
 		categories.forEach((category) => {
@@ -30,7 +30,7 @@ function GroupFilmsByCategory(films) {
 		return filmsList;
 	}, {});
 
-	groupedFilms[Symbol.iterator] = function () {
+	this.groupedFilms[Symbol.iterator] = function () {
 		const values = Object.values(this).flat();
 		const uniqueValues = values.reduce((filmsList, film) => {
 			if ( !filmsList.includes(film)) {
@@ -56,7 +56,7 @@ function GroupFilmsByCategory(films) {
 		};
 	};
 
-	return groupedFilms;
+	return this.groupedFilms;
 }
 
 const groupedFilmsByCategory = new GroupFilmsByCategory(films);

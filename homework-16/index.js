@@ -3,8 +3,6 @@ function getFibonacci() {
 
 	return (n) => {
 
-		console.log('cache ', cache);
-
 		function* fibonacciGen() {
 			let prev = 0,
 				next = 1,
@@ -21,25 +19,23 @@ function getFibonacci() {
 				// console.log(`Вызова с аргументом ${ n } нет в кеше, проводим расчет`);
 				for (; count < n; count++) {
 					yield prev;
-					prev = next - prev;
-					next = prev + next;
-
 					results.push(prev);
 					cache.set(n, results);
+					prev = next - prev;
+					next = prev + next;
 				}
 			} else {
 				// console.log(`Вызов с аргументом ${ n } есть в кеше, но генератор не закончен. Расчитанные значения возвращаем из кеша, неизвестные считаем и добавляем в кеш`);
 				for (; count < n; count++) {
 					yield prev;
-					prev = next - prev;
-					next = prev + next;
-
 					if (count === cache.get(n).length) {
 						// console.log('Добавляем в кеш');
 						results = cache.get(n);
 						results.push(prev);
 						cache.set(n, results);
 					}
+					prev = next - prev;
+					next = prev + next;
 				}
 			}
 		}
@@ -58,14 +54,4 @@ for (let i = 0; i < 4; i++) {
 const secondSeq = fibo(5);
 for (let i = 0; i < 6; i++) {
 	console.log('secondSeq ', secondSeq.next().value);
-}
-
-const thirdSeq = fibo(15);
-for (let i = 0; i < 14; i++) {
-	console.log('thirdSeq ', thirdSeq.next().value);
-}
-
-const foursSeq = fibo(12);
-for (let i = 0; i < 11; i++) {
-	console.log('foursSeq ', foursSeq.next().value);
 }

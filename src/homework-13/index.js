@@ -1,3 +1,4 @@
+/* eslint-disable */
 function findPalindrome(number) {
     let steps = 0;
     number = BigInt(number);
@@ -27,9 +28,8 @@ function findPalindrome(number) {
             const reverseNumber = BigInt(number.toString().split('').reverse().join(''));
             const nextNumber = number + reverseNumber;
             return search(nextNumber);
-
         } catch (e) {
-            return `Error: ${e.message} on ${steps} step.`
+            return `Error: ${e.message} on ${steps} step.`;
         }
     }
 

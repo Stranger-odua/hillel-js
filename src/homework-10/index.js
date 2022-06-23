@@ -1,3 +1,4 @@
+/* eslint-disable */
 function bind(fn, ctx) {
     const bindArgs = [].slice.call(arguments, 2);
 
@@ -13,7 +14,7 @@ function foo(a, b) {
 }
 
 const obj = {
-    number: 42
+    number: 42,
 };
 
 bind(foo, obj, 4, 5)();

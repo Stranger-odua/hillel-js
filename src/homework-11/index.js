@@ -1,13 +1,14 @@
+/* eslint-disable */
 const mult = (a, b) => a * b;
 
 function simpleCache(fn) {
     const cache = [];
 
     return (...args) => {
-        const foundArguments = cache.find((item) => item.arguments.every((val, i) => val === args[i]));
+        const foundArguments = cache.find(item => item.arguments.every((val, i) => val === args[i]));
         const newCacheItem = {
             arguments: args,
-            result: fn(...args)
+            result: fn(...args),
         };
 
         if (foundArguments) {

@@ -1,3 +1,4 @@
+/* eslint-disable */
 // Task 1
 //Вам нужно, написать функцию, которая принимает 1 параметр. При первом вызове,
 // она его запоминает, при втором — суммирует переданный параметр с тем, что передали
@@ -5,7 +6,7 @@
 function accumulator() {
     let count;
 
-    return (number) => {
+    return number => {
         if (!count) {
             count = number;
             return count;
@@ -22,7 +23,6 @@ console.log(someAcc(1));
 console.log(someAcc(2));
 console.log(someAcc(3));
 
-
 // Task 2
 //Это не все. Возьмите счетчик, который, мы писали в классе и добавьте ему
 // возможность задавать начальное значение и шаг счетчика при инициализации и
@@ -30,16 +30,16 @@ console.log(someAcc(3));
 function counter(initialCount, step) {
     let count = initialCount;
 
-    const calculation = () => count += step
-    calculation.reset = () => count = initialCount
+    const calculation = () => (count += step);
+    calculation.reset = () => (count = initialCount);
 
-    return calculation
+    return calculation;
 }
 
 const someCounter = counter(100, 5);
 
 console.log(someCounter());
 console.log(someCounter());
-someCounter.reset()
+someCounter.reset();
 console.log(someCounter());
 console.log(someCounter());

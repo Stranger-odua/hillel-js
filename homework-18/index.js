@@ -17,6 +17,7 @@
 */
 
 const list = [1, 2, 3, 4, 5];
+const squaresList = createSquares(list);
 
 function createSquares(arr) {
 	const ul = document.createElement('ul');
@@ -28,8 +29,6 @@ function createSquares(arr) {
 	});
 	return ul;
 }
-
-const squaresList = createSquares(list);
 
 squaresList.addEventListener('click', (e) => {
 	e.stopPropagation();
@@ -86,9 +85,7 @@ function createTable(rowsCount, colCount) {
 	return fillCellsAndRows();
 }
 
-const tableWithRandomNumbers = createTable(3, 3);
-
-tableWithRandomNumbers.addEventListener('click', ({target}) => {
+function eventListenerHandler({target}) {
 	const areFoundOldClickedNumber = document.querySelector('.clickedNumber');
 	if (areFoundOldClickedNumber) {
 		areFoundOldClickedNumber.remove();
@@ -99,6 +96,9 @@ tableWithRandomNumbers.addEventListener('click', ({target}) => {
 	clickedNumber.innerText = target.innerText;
 
 	tableWithRandomNumbers.after(clickedNumber);
-});
+}
+
+const tableWithRandomNumbers = createTable(3, 3);
+tableWithRandomNumbers.addEventListener('click', eventListenerHandler);
 
 squaresList.after(tableWithRandomNumbers);

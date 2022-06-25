@@ -1,0 +1,200 @@
+:root {
+    --base-font: 2rem;
+    --fw-normal: 400;
+    --fw-bold: 700;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 10px;
+    position: relative;
+}
+
+html,
+body {
+    min-height: 100%;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    user-select: none;
+}
+
+body {
+    font: var(--fw-normal) var(--base-font) 'Josefin Sans', sans-serif;
+    width: min(85%, 55rem);
+    margin: auto;
+    padding-top: 6.5rem;
+    background: #161722 url('./images/background.jpg') no-repeat 0 0 / 100vw 30rem;
+}
+
+input,
+button {
+    font: inherit;
+    border: 0;
+    background: transparent;
+}
+
+input:focus,
+button:focus,
+textarea:focus {
+    outline: 0;
+}
+
+button {
+    display: flex;
+    user-select: none;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem 2rem;
+    background-color: #25273c;
+    gap: 2rem;
+}
+
+header.card {
+    align-items: flex-start;
+    padding: 0;
+    background: transparent;
+}
+
+header.card h1 {
+    font-size: calc(var(--base-font) * 2.5);
+    font-weight: var(--fw-bold);
+    letter-spacing: 1.3rem;
+    color: #fff;
+}
+
+.add {
+    margin: 4rem 0 4rem 0;
+    border-radius: 0.5rem;
+}
+
+.add .checkbox-container > button.add {
+    font-size: var(--base-font);
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    transition: color 0.3s ease;
+    color: #a6abd8;
+}
+
+.add .checkbox-container:hover {
+    background: #3a7bfd;
+}
+
+textarea {
+    font: inherit;
+    overflow: hidden;
+    width: 100%;
+    /*height: 2.5rem;*/
+    /*height: auto;*/
+    min-height: 24px;
+    padding: 0.3rem 0;
+    resize: none;
+    word-wrap: anywhere;
+    color: #e4e5f1;
+    border: none;
+    background-color: #25273c;
+}
+
+textarea::placeholder {
+    font-weight: var(--fw-normal);
+    color: #4d5066;
+}
+
+.add .txt-container .txt-input {
+    font-weight: var(--fw-bold);
+    color: #c058f3;
+}
+
+.add .txt-container .txt-input::placeholder {
+    font-weight: var(--fw-normal);
+    color: #4d5066;
+}
+
+.card .checkbox-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    min-width: 25px;
+    height: 2.5rem;
+    border: 0.1rem solid #4d5066;
+    border-radius: 50%;
+}
+
+.card .checkbox-container .checkbox-input {
+    transform: scale(1.8);
+    opacity: 0;
+}
+
+.card .checkbox-container .check {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+    border-radius: inherit;
+}
+
+.card .checkbox-container .checkbox-input:checked + .check {
+    background: url('./images/icon-check.svg'), linear-gradient(45deg, #57ddff, #c058f3);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.list .card:first-child {
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.list > * + * {
+    border-top: 0.2rem solid #323449;
+}
+
+.list .card.checked .txt-container * {
+    text-decoration: line-through;
+    color: #777a92;
+    text-decoration-color: #777a92;
+}
+
+.text-input {
+    font-weight: var(--fw-bold);
+    color: #c058f3;
+}
+
+.delete {
+    cursor: pointer;
+    transition: opacity 0.5s ease;
+    opacity: 0;
+}
+
+.list .card:hover .delete {
+    opacity: 1;
+}
+
+.stats {
+    font-size: calc(var(--base-font) - 0.3rem);
+    justify-content: space-around;
+    border-top: 0.2rem solid #323449;
+    border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.stats * {
+    padding: 0.3rem 0;
+    color: #515267;
+}

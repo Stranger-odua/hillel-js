@@ -92,7 +92,7 @@ Object.defineProperties(todos, {
                 li.classList.add('card');
                 checkBoxContainer.classList.add('checkbox-container');
                 checkboxInput.classList.add('checkbox-input');
-                nameInput.classList.add('text-input');
+                nameInput.classList.add('txt-input');
                 textArea.classList.add('text-area');
                 check.classList.add('check');
                 txtContainer.classList.add('txt-container');
@@ -100,12 +100,22 @@ Object.defineProperties(todos, {
 
                 checkboxInput.setAttribute('type', 'checkbox');
                 nameInput.setAttribute('readonly', 'readonly');
+                // textArea.setAttribute('rows', '1');
                 textArea.setAttribute('readonly', 'readonly');
                 img.setAttribute('alt', 'Delete it');
                 img.setAttribute('src', './images/icon-cross.svg');
 
                 nameInput.value = todo.name;
                 textArea.value = todo.text;
+
+                // textArea.style.height = 'auto';
+                // if (textArea.scrollTop) {
+                //     console.log('-----------------------');
+                //     // textArea.style.height = textArea.scrollHeight + 'px';
+                //     textArea.setAttribute('rows', '2');
+                // }
+                // textArea.setAttribute('rows', '2');
+
                 if (todo.isComplete) {
                     li.classList.add('checked');
                     checkboxInput.setAttribute('checked', 'checked');
@@ -147,6 +157,9 @@ Object.defineProperties(todos, {
         },
     },
 });
+
+const textAreasCorrectLineHeight = document.querySelector('textarea.text-area');
+textAreasCorrectLineHeight.style.height = textAreasCorrectLineHeight.scrollHeight + 'px';
 
 const { addForm } = document.forms;
 addForm.addEventListener('submit', todos.addTodo.bind(todos));

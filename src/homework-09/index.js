@@ -83,13 +83,11 @@ Object.defineProperties(todos, {
                 return acc;
             }, 0);
 
-            const allTodosStatus = {
+            return {
                 total: this.list.length,
                 complete: completeTodosCount,
                 notComplete: this.list.length - completeTodosCount,
             };
-
-            return allTodosStatus;
         },
     },
 });

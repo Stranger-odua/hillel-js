@@ -8,7 +8,6 @@ Object.defineProperties(todos, {
     addTodo: {
         value: function (e) {
             e.preventDefault();
-            e.stopPropagation();
             const { taskName, taskText } = e.target.elements;
             const areTodoNameExist = this.list.find(task => task.name === taskName.value);
 
@@ -23,7 +22,6 @@ Object.defineProperties(todos, {
                     isComplete: false,
                 };
                 this.list.push(newTodo);
-
                 taskName.value = '';
                 taskText.value = '';
                 this.showTodos();
@@ -33,9 +31,9 @@ Object.defineProperties(todos, {
 
     deleteTodo: {
         value: function (e) {
-            const taskNametoDelete = e.target.parentNode.parentNode.firstElementChild.nextSibling.firstChild.value;
+            const taskNameToDelete = e.target.parentNode.parentNode.firstElementChild.nextSibling.firstChild.value;
             const ul = e.target.parentNode.parentNode.parentNode;
-            const deletedIndex = this.list.findIndex(task => task.name === taskNametoDelete);
+            const deletedIndex = this.list.findIndex(task => task.name === taskNameToDelete);
             const deleteCount = 1;
             this.list.splice(deletedIndex, deleteCount);
             ul.innerHTML = '';
@@ -92,7 +90,7 @@ Object.defineProperties(todos, {
                 li.classList.add('card');
                 checkBoxContainer.classList.add('checkbox-container');
                 checkboxInput.classList.add('checkbox-input');
-                nameInput.classList.add('txt-input');
+                nameInput.classList.add('text-input');
                 textArea.classList.add('text-area');
                 check.classList.add('check');
                 txtContainer.classList.add('txt-container');
@@ -100,21 +98,13 @@ Object.defineProperties(todos, {
 
                 checkboxInput.setAttribute('type', 'checkbox');
                 nameInput.setAttribute('readonly', 'readonly');
-                // textArea.setAttribute('rows', '1');
+                textArea.setAttribute('rows', '1');
                 textArea.setAttribute('readonly', 'readonly');
                 img.setAttribute('alt', 'Delete it');
                 img.setAttribute('src', './images/icon-cross.svg');
 
                 nameInput.value = todo.name;
                 textArea.value = todo.text;
-
-                // textArea.style.height = 'auto';
-                // if (textArea.scrollTop) {
-                //     console.log('-----------------------');
-                //     // textArea.style.height = textArea.scrollHeight + 'px';
-                //     textArea.setAttribute('rows', '2');
-                // }
-                // textArea.setAttribute('rows', '2');
 
                 if (todo.isComplete) {
                     li.classList.add('checked');
@@ -158,9 +148,6 @@ Object.defineProperties(todos, {
     },
 });
 
-const textAreasCorrectLineHeight = document.querySelector('textarea.text-area');
-textAreasCorrectLineHeight.style.height = textAreasCorrectLineHeight.scrollHeight + 'px';
-
 const { addForm } = document.forms;
 addForm.addEventListener('submit', todos.addTodo.bind(todos));
 
@@ -168,61 +155,36 @@ const list = document.createElement('ul');
 list.classList.add('list');
 addForm.after(list);
 
-list.addEventListener(
-    'click',
-    e => {
-        e.stopPropagation();
-        if (e.target.nodeName === 'IMG') {
-            todos.deleteTodo(e);
-        }
+list.addEventListener('click', e => {
+    if (e.target.nodeName === 'IMG') {
+        todos.deleteTodo(e);
+    }
 
-        if (e.target.type === 'checkbox') {
-            todos.changeTodoStatus(e);
-        }
-    },
-    true
-);
+    if (e.target.type === 'checkbox') {
+        todos.changeTodoStatus(e);
+    }
+});
 
-list.addEventListener(
-    'dblclick',
-    e => {
-        e.stopPropagation();
-        if (e.target.classList.contains('text-area')) {
-            todos.editTodoText(e);
-        }
-    },
-    true
-);
+list.addEventListener('dblclick', e => {
+    if (e.target.classList.contains('text-area')) {
+        todos.editTodoText(e);
+    }
+});
 
-list.addEventListener(
-    'focusout',
-    e => {
-        e.stopPropagation();
-        if (e.target.classList.contains('text-area')) {
-            todos.editTodoText(e);
-        }
-    },
-    true
-);
+list.addEventListener('focusout', e => {
+    if (e.target.classList.contains('text-area')) {
+        todos.editTodoText(e);
+    }
+});
 
-list.addEventListener(
-    'keydown',
-    e => {
-        e.stopPropagation();
-        if (e.code === 'Enter' && e.target.classList.contains('text-area')) {
-            todos.editTodoText(e);
-        }
-    },
-    true
-);
+list.addEventListener('keydown', e => {
+    if (e.code === 'Enter' && e.target.classList.contains('text-area')) {
+        todos.editTodoText(e);
+    }
+});
 
-list.addEventListener(
-    'keydown',
-    e => {
-        e.stopPropagation();
-        if (e.code === 'Escape' && e.target.classList.contains('text-area')) {
-            todos.editTodoText(e);
-        }
-    },
-    true
-);
+list.addEventListener('keydown', e => {
+    if (e.code === 'Escape' && e.target.classList.contains('text-area')) {
+        todos.editTodoText(e);
+    }
+});

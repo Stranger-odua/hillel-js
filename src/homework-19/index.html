@@ -17,10 +17,11 @@
     <h1>TODO</h1>
 </header>
 
-<form class="card add" name="addForm">
+<form class="card add" name="add-form">
     <div class="checkbox-container">
         <button class="add">+</button>
     </div>
+
     <div class="txt-container">
         <label>
             <input
@@ -33,25 +34,19 @@
                     type="text"
             />
         </label>
-        <textarea
-                autocomplete="off"
-                class="text-area"
-                cols="32"
-                maxlength="32"
-                name="taskText"
-                placeholder="Type text here..."
-                rows="1"
-                spellcheck="false"
-                title="text"
-        ></textarea>
+        <label>
+            <input
+                    autocomplete="off"
+                    class="text-input"
+                    maxlength="32"
+                    name="taskText"
+                    placeholder="Type text here..."
+                    spellcheck="false"
+                    title="text"
+            >
+        </label>
     </div>
 </form>
-
-<div class="card stats">
-    <span class="items-left">0 left</span>
-    <span class="items-done">0 done</span>
-    <span class="items-all">0 all</span>
-</div>
 
 <script src='index.js'></script>
 </body>

@@ -1,5 +1,7 @@
 class TodolistModel {
-    list = [];
+    constructor() {
+        this.list = [];
+    }
 
     add(name, text) {
         const areTodoNameExist = this.list.findIndex(task => task.taskName === name);

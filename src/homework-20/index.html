@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+    <meta charset='UTF-8'>
+    <title>Homework 20</title>
+    <link href="images/favicon-32x32.png" rel="icon" type="image/x-icon">
+    <link
+            href="https://fonts.googleapis.com/css2?family=Josefin+Sans:wght@400;700&display=swap"
+            rel="stylesheet"
+    />
+    <link href='style.css' rel='stylesheet'>
+</head>
+
+<body>
+
+<header class="card title">
+    <h1>TODO</h1>
+</header>
+
+<form class="card add" name="add-form">
+    <div class="checkbox-container">
+        <button class="add">+</button>
+    </div>
+
+    <div class="txt-container">
+        <label>
+            <input
+                    autocomplete="off"
+                    class="text-input"
+                    maxlength="32"
+                    name="taskName"
+                    placeholder="Type name here..."
+                    spellcheck="false"
+                    type="text"
+            />
+        </label>
+        <label>
+            <input
+                    autocomplete="off"
+                    class="text-input"
+                    maxlength="32"
+                    name="taskText"
+                    placeholder="Type text here..."
+                    spellcheck="false"
+                    title="text"
+            >
+        </label>
+    </div>
+</form>
+
+<script src='index.js'></script>
+</body>
+</html>

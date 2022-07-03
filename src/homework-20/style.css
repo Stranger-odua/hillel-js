@@ -1,0 +1,165 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+html {
+    font-size: 10px;
+    position: relative;
+}
+
+html,
+body {
+    min-height: 100%;
+}
+
+ul {
+    list-style: none;
+}
+
+img {
+    user-select: none;
+}
+
+body {
+    font: 400 2rem 'Josefin Sans', sans-serif;
+    width: min(85%, 55rem);
+    margin: auto;
+    padding-top: 6.5rem;
+    background: #161722 url('./images/background.jpg') no-repeat 0 0 / 100vw 30rem;
+}
+
+input,
+button {
+    font: inherit;
+    border: 0;
+    background: transparent;
+}
+
+input:focus,
+button:focus {
+    outline: 0;
+}
+
+button {
+    display: flex;
+    user-select: none;
+}
+
+.card {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0.8rem 2rem;
+    background-color: #25273c;
+    gap: 2rem;
+}
+
+header.card {
+    padding: 0;
+    background: transparent;
+}
+
+header.card h1 {
+    font-size: calc(2rem * 2.5);
+    font-weight: 700;
+    letter-spacing: 1.3rem;
+    color: #fff;
+}
+
+.add {
+    margin: 4rem 0 4rem 0;
+    border-radius: 0.5rem;
+}
+
+.add .checkbox-container > button.add {
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    color: #a6abd8;
+}
+
+.add .checkbox-container:hover {
+    background-color: #3a7bfd;
+}
+
+.card .checkbox-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem;
+    min-width: 25px;
+    height: 2.5rem;
+    border: 0.1rem solid #4d5066;
+    border-radius: 50%;
+}
+
+.card .checkbox-container .checkbox-input {
+    opacity: 0;
+}
+
+.card .checkbox-container .check {
+    position: absolute;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    left: 0;
+    pointer-events: none;
+    border-radius: inherit;
+}
+
+.card .checkbox-container .checkbox-input:checked + .check {
+    background: url('./images/icon-check.svg'), linear-gradient(45deg, #57ddff, #c058f3);
+    background-repeat: no-repeat;
+    background-position: center;
+}
+
+.list .card:first-child {
+    border-radius: 0.5rem 0.5rem 0 0;
+}
+
+.list > * + * {
+    border-top: 0.2rem solid #323449;
+}
+
+.list .card.checked .txt-container * {
+    text-decoration: line-through;
+    color: #777a92;
+    text-decoration-color: #777a92;
+}
+
+.text-input {
+    font-weight: 700;
+    width: 100%;
+    color: #c058f3;
+}
+
+.text-input::placeholder {
+    font-weight: 400;
+    color: #4d5066;
+}
+
+.delete {
+    cursor: pointer;
+    transition: opacity 0.5s ease;
+    opacity: 0;
+}
+
+.list .card:hover .delete {
+    opacity: 1;
+}
+
+.stats {
+    font-size: calc(2rem - 0.3rem);
+    justify-content: space-around;
+    border-top: 0.2rem solid #323449;
+    border-radius: 0 0 0.5rem 0.5rem;
+}
+
+.stats * {
+    padding: 0.3rem 0;
+    color: #515267;
+}

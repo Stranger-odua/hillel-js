@@ -4,9 +4,8 @@ class TodolistModel {
     }
 
     add(name, text) {
-        const areTodoNameExist = this.list.findIndex(task => task.taskName === name);
-
-        if (areTodoNameExist) {
+        const areTaskNameExist = this.list.findIndex(task => task.name === name);
+        if (areTaskNameExist) {
             const task = {
                 name,
                 text,
@@ -127,7 +126,7 @@ class TodolistView {
         itemsDone.classList.add('items-done');
         itemsAll.classList.add('items-all');
 
-        const { allTasks, completedTasks, leftTasks } = this.model.getStatusesCount();
+        const {allTasks, completedTasks, leftTasks} = this.model.getStatusesCount();
 
         itemsLeft.textContent = `${leftTasks} left`;
         itemsDone.textContent = `${completedTasks} done`;

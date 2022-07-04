@@ -4,8 +4,8 @@ class TodolistModel {
     }
 
     add(name, text) {
-        const areTaskNameExist = this.list.findIndex(task => task.name === name);
-        if (areTaskNameExist) {
+        const areTaskNameExist = this.list.find(task => task.name === name);
+        if (!areTaskNameExist) {
             const task = {
                 name,
                 text,

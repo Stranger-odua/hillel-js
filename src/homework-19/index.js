@@ -3,9 +3,8 @@ function TodoListModel() {
 }
 
 TodoListModel.prototype.add = function (name, text) {
-    const areTodoNameExist = this.list.findIndex(task => task.taskName === name);
-
-    if (areTodoNameExist) {
+    const areTaskNameExist = this.list.find(task => task.name === name);
+    if (!areTaskNameExist) {
         const task = {
             name,
             text,

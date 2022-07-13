@@ -1,3 +1,4 @@
+/* eslint-disable */
 const menu = {
     burgerMenu: [
         {
@@ -29,38 +30,36 @@ const menu = {
     ],
 };
 
-// Решение с использованием замыкания
-function completeOrder(kit) {
-    const dishes = [];
-
-    const doSomethingWhenTimerRunsOut = cookedDishes => {
-        // eslint-disable-next-line no-console
-        console.log(cookedDishes);
-    };
-
-    kit.forEach(dish => {
-        dishes.push(`${dish.name} done`);
-
-        setTimeout(() => {
-            doSomethingWhenTimerRunsOut(dishes, dish.name);
-        }, dish.time);
-    });
-}
-
-completeOrder(menu.pizzaMenu);
-
-// Решение с использованием коллбека
+// Решение 1
 function completeOrder1(kit, doSomethingWhenTimerRunsOut) {
     const dishes = [];
 
-    kit.forEach(dish => {
-        dishes.push(`${dish.name} done`);
-
+    kit.forEach((dish, i) => {
         setTimeout(() => {
-            doSomethingWhenTimerRunsOut(dishes);
+            doSomethingWhenTimerRunsOut(dishes, dish, i);
         }, dish.time);
     });
 }
 
-// eslint-disable-next-line no-console
-completeOrder1(menu.pizzaMenu, cookedDishes => console.log(cookedDishes));
+completeOrder1(menu.pizzaMenu, (cookedDishes, cookedDish, index) => {
+    cookedDishes[index] = `${cookedDish.name} done`;
+    console.log(cookedDishes);
+});
+
+// Решение 2
+function completeOrder2(kit) {
+    const dishes = [];
+
+    const doSomethingWhenTimerRunsOut = (cookedDishes, cookedDish, index) => {
+        cookedDishes[index] = `${cookedDish.name} done`;
+        console.log(cookedDishes);
+    };
+
+    kit.forEach((dish, i) => {
+        setTimeout(() => {
+            doSomethingWhenTimerRunsOut(dishes, dish, i);
+        }, dish.time);
+    });
+}
+
+completeOrder2(menu.pizzaMenu);

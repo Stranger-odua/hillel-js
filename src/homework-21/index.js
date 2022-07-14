@@ -20,7 +20,7 @@ const menu = {
         },
         {
             name: 'Pepsi',
-            time: 500,
+            time: 3000,
         },
         {
             name: 'souse',
@@ -32,7 +32,7 @@ const menu = {
 function completeOrder(kit, doSomethingWhenTimerRunsOut) {
     const dishes = [];
 
-    const maxTimeLast = kit.reduce(
+    const lastDishWithMaxTime = kit.reduce(
         (maxTime, dish, i) => {
             if (maxTime.time <= dish.time) {
                 maxTime.time = dish.time;
@@ -50,7 +50,8 @@ function completeOrder(kit, doSomethingWhenTimerRunsOut) {
         setTimeout(
             () => {
                 dishes[i] = `${dish.name} done`;
-                if (dish.time === maxTimeLast.time && i === maxTimeLast.i) doSomethingWhenTimerRunsOut(dishes);
+                if (dish.time === lastDishWithMaxTime.time && i === lastDishWithMaxTime.i)
+                    doSomethingWhenTimerRunsOut(dishes);
             },
             dish.time,
             dishes

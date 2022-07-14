@@ -41,5 +41,6 @@ function completeOrder(kit, doSomethingWhenTimerRunsOut) {
 
 completeOrder(menu.pizzaMenu, (cookedDishes, cookedDish, index) => {
     cookedDishes[index] = `${cookedDish.name} done`;
+    // eslint-disable-next-line no-console
     console.log(cookedDishes);
 });

@@ -20,7 +20,7 @@ const menu = {
         },
         {
             name: 'Pepsi',
-            time: 3000,
+            time: 500,
         },
         {
             name: 'souse',

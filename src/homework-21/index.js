@@ -29,37 +29,30 @@ const menu = {
     ],
 };
 
-function completeOrder(kit, doSomethingWhenTimerRunsOut) {
-    const dishes = [];
+function createOrder(kit, doneCallback) {
+    const doneDishes = [];
 
-    const lastDishWithMaxTime = kit.reduce(
-        (maxTime, dish, i) => {
-            if (maxTime.time <= dish.time) {
-                maxTime.time = dish.time;
-                maxTime.i = i;
-            }
-            return maxTime;
-        },
-        {
-            time: 0,
-            i: 0,
+    function cookDishes(dish, index, callback) {
+        setTimeout(() => {
+            callback({
+                value: `${dish.name} done`,
+                index,
+            });
+        }, dish.time);
+    }
+
+    function getResultData({ value, index }) {
+        doneDishes[index] = value;
+
+        if (doneDishes.filter(dish => !!dish).length === kit.length) {
+            doneCallback(doneDishes);
         }
-    );
+    }
 
-    kit.forEach((dish, i) => {
-        setTimeout(
-            () => {
-                dishes[i] = `${dish.name} done`;
-                if (dish.time === lastDishWithMaxTime.time && i === lastDishWithMaxTime.i)
-                    doSomethingWhenTimerRunsOut(dishes);
-            },
-            dish.time,
-            dishes
-        );
-    });
+    kit.forEach((dish, index) => cookDishes(dish, index, getResultData));
 }
 
-completeOrder(menu.pizzaMenu, cookedDishes => {
+createOrder(menu.pizzaMenu, res => {
     // eslint-disable-next-line no-console
-    console.log(cookedDishes);
+    console.log(res);
 });

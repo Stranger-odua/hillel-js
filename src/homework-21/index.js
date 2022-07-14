@@ -31,16 +31,29 @@ const menu = {
 
 function completeOrder(kit, doSomethingWhenTimerRunsOut) {
     const dishes = [];
+    const maxTime = Math.max(
+        ...kit.reduce((delays, dish) => {
+            delays.push(dish.time);
+            return delays;
+        }, [])
+    );
 
     kit.forEach((dish, i) => {
-        setTimeout(() => {
-            doSomethingWhenTimerRunsOut(dishes, dish, i);
-        }, dish.time);
+        setTimeout(
+            () => {
+                dishes[i] = `${dish.name} done`;
+
+                if (dish.time === maxTime) {
+                    doSomethingWhenTimerRunsOut(dishes);
+                }
+            },
+            dish.time,
+            dishes
+        );
     });
 }
 
-completeOrder(menu.pizzaMenu, (cookedDishes, cookedDish, index) => {
-    cookedDishes[index] = `${cookedDish.name} done`;
+completeOrder(menu.pizzaMenu, cookedDishes => {
     // eslint-disable-next-line no-console
     console.log(cookedDishes);
 });

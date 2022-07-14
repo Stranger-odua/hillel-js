@@ -31,21 +31,26 @@ const menu = {
 
 function completeOrder(kit, doSomethingWhenTimerRunsOut) {
     const dishes = [];
-    const maxTime = Math.max(
-        ...kit.reduce((delays, dish) => {
-            delays.push(dish.time);
-            return delays;
-        }, [])
+
+    const lastMaxTime = kit.reduce(
+        (maxTime, dish, i) => {
+            if (maxTime.time <= dish.time) {
+                maxTime.time = dish.time;
+                maxTime.i = i;
+            }
+            return maxTime;
+        },
+        {
+            time: 0,
+            i: 0,
+        }
     );
 
     kit.forEach((dish, i) => {
         setTimeout(
             () => {
                 dishes[i] = `${dish.name} done`;
-
-                if (dish.time === maxTime) {
-                    doSomethingWhenTimerRunsOut(dishes);
-                }
+                if (dish.time === lastMaxTime.time && i === lastMaxTime.i) doSomethingWhenTimerRunsOut(dishes);
             },
             dish.time,
             dishes

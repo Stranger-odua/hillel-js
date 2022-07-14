@@ -30,8 +30,7 @@ const menu = {
     ],
 };
 
-// Решение 1
-function completeOrder1(kit, doSomethingWhenTimerRunsOut) {
+function completeOrder(kit, doSomethingWhenTimerRunsOut) {
     const dishes = [];
 
     kit.forEach((dish, i) => {
@@ -41,25 +40,7 @@ function completeOrder1(kit, doSomethingWhenTimerRunsOut) {
     });
 }
 
-completeOrder1(menu.pizzaMenu, (cookedDishes, cookedDish, index) => {
+completeOrder(menu.pizzaMenu, (cookedDishes, cookedDish, index) => {
     cookedDishes[index] = `${cookedDish.name} done`;
     console.log(cookedDishes);
 });
-
-// Решение 2
-function completeOrder2(kit) {
-    const dishes = [];
-
-    const doSomethingWhenTimerRunsOut = (cookedDishes, cookedDish, index) => {
-        cookedDishes[index] = `${cookedDish.name} done`;
-        console.log(cookedDishes);
-    };
-
-    kit.forEach((dish, i) => {
-        setTimeout(() => {
-            doSomethingWhenTimerRunsOut(dishes, dish, i);
-        }, dish.time);
-    });
-}
-
-completeOrder2(menu.pizzaMenu);

@@ -10,30 +10,25 @@ const button = document.querySelector('button');
 function debounceHandler() {
     let promisesIds = [];
 
-    return (fn, timer) => {
+    return (cbFn, timer) => {
         const promiseId = Math.random();
         promisesIds.push(promiseId);
 
-        const res = () => {
-            if (promisesIds.find(id => id === promiseId)) {
-                promisesIds = [];
-
-                fn(timer);
-            }
-        };
-
         return new Promise(resolve => {
-            setTimeout(() => resolve(res), timer);
+            setTimeout(() => {
+                if (promisesIds.find(id => id === promiseId)) {
+                    promisesIds = [];
+
+                    resolve(cbFn);
+                }
+            }, timer);
         });
     };
 }
 
 const debounce = debounceHandler();
-
-function someFunction(runTime) {
-    // eslint-disable-next-line no-console
-    console.log(`completed through ${runTime}ms`);
-}
-
+const someFunction = () => 'completed';
 const delay = 2000;
-button.addEventListener('click', () => debounce(someFunction, delay).then(cbSomeFn => cbSomeFn()));
+
+// eslint-disable-next-line no-console
+button.addEventListener('click', () => debounce(someFunction, delay).then(cbSomeFn => console.log(cbSomeFn())));

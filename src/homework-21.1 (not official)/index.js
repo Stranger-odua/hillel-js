@@ -8,21 +8,21 @@ element.addEventListener('click', debounce(sendMail, 1000));
 const button = document.querySelector('button');
 
 function debounceHandler() {
-    let promisesIds = [];
+    let areSomePromiseIsPending = false;
 
     return (cbFn, timer) => {
-        const promiseId = Math.random();
-        promisesIds.push(promiseId);
+        if (!areSomePromiseIsPending) {
+            areSomePromiseIsPending = !areSomePromiseIsPending;
 
-        return new Promise(resolve => {
-            setTimeout(() => {
-                if (promisesIds.find(id => id === promiseId)) {
-                    promisesIds = [];
-
+            return new Promise(resolve => {
+                setTimeout(() => {
+                    areSomePromiseIsPending = !areSomePromiseIsPending;
                     resolve(cbFn);
-                }
-            }, timer);
-        });
+                }, timer);
+            });
+        } else {
+            return new Promise((resolve, reject) => reject('You need to wait a bit'));
+        }
     };
 }
 
@@ -30,5 +30,11 @@ const debounce = debounceHandler();
 const someFunction = () => 'completed';
 const delay = 2000;
 
-// eslint-disable-next-line no-console
-button.addEventListener('click', () => debounce(someFunction, delay).then(cbSomeFn => console.log(cbSomeFn())));
+button.addEventListener('click', () =>
+    debounce(someFunction, delay).then(
+        // eslint-disable-next-line no-console
+        cbSomeFn => console.log(cbSomeFn()),
+        // eslint-disable-next-line no-console
+        error => console.log(error)
+    )
+);

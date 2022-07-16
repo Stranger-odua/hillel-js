@@ -35,6 +35,6 @@ button.addEventListener('click', () =>
         // eslint-disable-next-line no-console
         cbSomeFn => console.log(cbSomeFn()),
         // eslint-disable-next-line no-console
-        error => console.log(error)
+        error => console.error(error)
     )
 );

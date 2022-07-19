@@ -1,7 +1,3 @@
-/*
-* * Решение вышло несколько 'ленивым', но для того, чтобы задействовать остальные методы localStorage, возможно,
-*  пришлось бы весь код перестроить, не вижу в этом смысла. Остальные методы "потыкал" отдельно.
-*/
 class TodolistModel {
     list = JSON.parse(localStorage.getItem('listLS')) || [];
 
@@ -14,7 +10,7 @@ class TodolistModel {
                 isComplete: false,
             };
             this.list.push(task);
-            localStorage.setItem('listLS', JSON.stringify(this.list));
+            this.saveToStorage();
         }
     }
 
@@ -22,18 +18,22 @@ class TodolistModel {
         const deleteTask = this.list.findIndex(task => task.name === name);
         const deleteCount = 1;
         this.list.splice(deleteTask, deleteCount);
-        localStorage.setItem('listLS', JSON.stringify(this.list));
+        this.saveToStorage();
     }
 
     edit(name, newText) {
         const editTask = this.list.findIndex(task => task.name === name);
         this.list[editTask].text = newText;
-        localStorage.setItem('listLS', JSON.stringify(this.list));
+        this.saveToStorage();
     }
 
     changeStatus(name) {
         const changeStatusTask = this.list.findIndex(task => task.name === name);
         this.list[changeStatusTask].isComplete = !this.list[changeStatusTask].isComplete;
+        this.saveToStorage();
+    }
+
+    saveToStorage() {
         localStorage.setItem('listLS', JSON.stringify(this.list));
     }
 

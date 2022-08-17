@@ -23,8 +23,9 @@ function App() {
             checked: false,
         },
     ];
+    const filter = 'All';
     const [todos, setTodos] = useState(tasksList);
-    const [tasksFilter, setTasksFilter] = useState('All');
+    const [tasksFilter, setTasksFilter] = useState(filter);
 
     const handlerOnFilterClick = (e) => {
         e.preventDefault();
@@ -41,11 +42,12 @@ function App() {
         e.target.classList.add('selected');
     };
 
+
     return (
         <section className="todoapp">
             <TodoHeader todos={ todos } setTodos={ setTodos }/>
             <section className="main">
-                <TodoToggleAll/>
+                <TodoToggleAll todos={ todos } setTodos={ setTodos }/>
                 <TodoList todos={ todos } setTodos={ setTodos } tasksFilter={ tasksFilter }/>
             </section>
             <TodoFooter

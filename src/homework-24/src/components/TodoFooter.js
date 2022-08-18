@@ -2,7 +2,7 @@ import TodoItemsLeft from './TodoItemsLeft.js';
 import TodoFilter from './TodoFilter.js';
 import TodoCompleted from './TodoCompleted.js';
 
-function TodoFooter({todos, setTodos, handlerOnFilterClick}) {
+function TodoFooter({todos, setTodos, setTasksFilter}) {
 
     return (
         <footer className="footer">
@@ -10,7 +10,7 @@ function TodoFooter({todos, setTodos, handlerOnFilterClick}) {
             <TodoFilter
                 todos={ todos }
                 setTodos={ setTodos }
-                handlerOnFilterClick={ handlerOnFilterClick }
+                setTasksFilter={ setTasksFilter }
             />
             <TodoCompleted
                 todos={ todos }

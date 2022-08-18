@@ -1,3 +1,10 @@
+/* TODO 1. даблклік - редагувати
+        2. чекбокс зліва від інпуту пустий, коли немає тасків
+        3. футер не відображається, коли немає тасків
+        4. Clear completed не відображається, коли немає виконаних тасків
+ */
+
+
 import './styles.css';
 import { useState } from 'react';
 import TodoHeader from './components/TodoHeader.js';
@@ -27,22 +34,6 @@ function App() {
     const [todos, setTodos] = useState(tasksList);
     const [tasksFilter, setTasksFilter] = useState(filter);
 
-    const handlerOnFilterClick = (e) => {
-        e.preventDefault();
-        const filterItems = e.target.parentElement.parentElement.children;
-        setTasksFilter(e.target.textContent);
-
-        for (const filterItem of filterItems) {
-            const filterItemLink = filterItem.firstChild;
-
-            if (filterItemLink.classList.contains('selected')) {
-                filterItemLink.classList.remove('selected');
-            }
-        }
-        e.target.classList.add('selected');
-    };
-
-
     return (
         <section className="todoapp">
             <TodoHeader todos={ todos } setTodos={ setTodos }/>
@@ -53,7 +44,7 @@ function App() {
             <TodoFooter
                 todos={ todos }
                 setTodos={ setTodos }
-                handlerOnFilterClick={ handlerOnFilterClick }
+                setTasksFilter={ setTasksFilter }
             />
         </section>
     );

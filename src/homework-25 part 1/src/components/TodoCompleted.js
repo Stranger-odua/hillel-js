@@ -1,6 +1,8 @@
-function TodoCompleted({clearCompletedTodos, itemsLeft}) {
+function TodoCompleted({clearCompletedTodos, itemsCount}) {
 
-    const style = itemsLeft > 0 ? {display: 'none'} : {display: 'block'};
+    const style = itemsCount.completed > 0 ? {display: 'block'} : {display: 'none'};
+
+    console.log(itemsCount.completed);
 
     return <button
         className="clear-completed"

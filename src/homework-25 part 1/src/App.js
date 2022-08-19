@@ -12,7 +12,6 @@ import {
     addTodo,
     toggleTodos,
     clearCompletedTodos,
-    itemsLeftCount,
     countItems,
 } from './functions';
 
@@ -27,9 +26,8 @@ export default function App() {
     const [filter, setFilter] = useState(initialFilter);
     const [todos, setTodos] = useState(initialTodos);
     const filteredTodos = filterTodos(todos, filter);
-    const itemsCount = countItems(todos);
-
-    const style = itemsCount > 0 ? {display: 'block'} : {display: 'none'};
+    const {itemsCount} = countItems(todos);
+    const style = itemsCount.all > 0 ? {display: 'block'} : {display: 'none'};
 
     return (<section className="todoapp">
         <TodoHeader addTodo={ (title) => {
@@ -58,7 +56,6 @@ export default function App() {
             updateFilter={ (filter) => setFilter(filter) }
             clearCompletedTodos={ () => setTodos(clearCompletedTodos(todos)) }
             itemsCount={ itemsCount }
-            itemsLeft={ itemsLeftCount(todos) }
         />
     </section>);
 }

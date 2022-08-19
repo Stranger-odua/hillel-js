@@ -56,9 +56,9 @@ export function filterTodos(todos, filter) {
 }
 
 export function countItems(todos) {
-    return todos.length;
-}
+    const all = todos?.length;
+    const left = todos.filter((todo) => !todo.completed).length;
+    const completed = todos.filter((todo) => todo.completed).length;
 
-export function itemsLeftCount(todos) {
-    return todos.filter((todo) => !todo.completed).length;
+    return {itemsCount: {all, left, completed}};
 }

@@ -1,7 +1,7 @@
-function TodoItemsLeft({itemsCount}) {
+function TodoItemsLeft({leftItems}) {
     return (
         <span className="todo-count">
-      <strong>{ itemsCount.left }</strong> items left
+      <strong>{ leftItems }</strong> items left
     </span>
     );
 }

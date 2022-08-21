@@ -16,15 +16,9 @@ import {
     checkIsLogged,
     login,
     logout,
-    getList,
+    getList, clearCompletedTodos,
 } from './functions';
-
-// const initialTodos = [
-//     {_id: 1, value: 'Todo 1', checked: true},
-//     {_id: 2, value: 'Todo 2', checked: true},
-//     {_id: 3, value: 'Todo 3', checked: false},
-// ];
-
+import TodoFooter from './components/TodoFooter';
 
 export default function App() {
     const initialFilter = 'all';
@@ -37,72 +31,67 @@ export default function App() {
     const appSectionStyle = authStatus ? {display: 'block'} : {display: 'none'};
     const mainSectionStyle = itemsTotal > 0 ? {display: 'block'} : {display: 'none'};
 
+
     useEffect(() => {
-        // console.log('authStatus in useEffect', authStatus);
-        // console.log('checkIsLogged in useEffect', checkIsLogged());
-        console.log(1);
-        if (authStatus) {
-            console.log(2);
+        let newTodoList = [];
+        const getTodoList = async () => {
+            if (authStatus) {
+                newTodoList = await getList();
+            }
+            setTodos(newTodoList);
+        };
 
-            getList().then((todos) => {
-                console.log('2 todos in useEffect: ', todos);
-                setTodos(todos);
-            });
+        getTodoList().catch(console.error);
 
-        } else {
-            console.log(3);
-            setTodos([]);
-            console.log('3 todos in useEffect: ', todos);
-        }
     }, [authStatus]);
 
-    console.log('4 todos: ', todos);
+    return (
+        <>
+            <section className="todoapp" style={ appSectionStyle }>
+                <TodoHeader addTodo={ async (title) => {
+                    setTodos(await addTodo(todos, title));
+                } }
+                />
+                <section className="main" style={ mainSectionStyle }>
+                    <TodoToggleAll toggleTodos={ async () => {
+                        setTodos(await toggleTodos(todos));
+                    } }/>
+                    <TodoList
+                        todos={ filteredTodos }
+                        toggleTodo={ async (id) => {
+                            setTodos(await toggleTodo(todos, id));
+                        } }
+                        removeTodo={ async (id) => {
+                            setTodos(await removeTodo(todos, id));
+                        } }
+                        updateTodo={ async (id, todo) => {
+                            setTodos(await updateTodo(todos, id, todo));
+                        } }
+                    />
+                </section>
 
-    return (<>
-        <section className="todoapp" style={ appSectionStyle }>
-            <TodoHeader addTodo={ (title) => {
-                setTodos(addTodo(todos, title));
-            } }
-            />
-            <section className="main" style={ mainSectionStyle }>
-                <TodoToggleAll toggleTodos={ (completed) => {
-                    setTodos(toggleTodos(todos, completed));
-                } }/>
-                <TodoList
-                    todos={ filteredTodos }
-                    toggleTodo={ (id) => {
-                        setTodos(toggleTodo(todos, id));
-                    } }
-                    removeTodo={ (id) => {
-                        setTodos(removeTodo(todos, id));
-                    } }
-                    updateTodo={ (id, todo) => {
-                        setTodos(updateTodo(todos, id, todo));
-                    } }
+                <TodoFooter
+                    filter={ filter }
+                    updateFilter={ (filter) => setFilter(filter) }
+                    clearCompletedTodos={ async () => setTodos(await clearCompletedTodos(todos)) }
+                    itemsTotal={ itemsTotal }
+                    itemsCompleted={ itemsCompleted }
+                    itemsLeft={ itemsLeft }
                 />
             </section>
 
-            {/*<TodoFooter*/ }
-            {/*    filter={ filter }*/ }
-            {/*    updateFilter={ (filter) => setFilter(filter) }*/ }
-            {/*    clearCompletedTodos={ () => setTodos(clearCompletedTodos(todos)) }*/ }
-            {/*    itemsTotal={ itemsTotal }*/ }
-            {/*    itemsCompleted={ itemsCompleted }*/ }
-            {/*    itemsLeft={ itemsLeft }*/ }
-            {/*/>*/ }
-        </section>
-
-        <Authorization
-            login={ async (email) => {
-                await login(email);
-            } }
-            logout={ () => {
-                logout();
-            } }
-            authStatus={ authStatus }
-            setAuthStatus={ (newStatus) => {
-                setAuthStatus(newStatus);
-            } }
-            checkIsLogged={ checkIsLogged }/>
-    </>);
+            <Authorization
+                login={ async (email) => {
+                    await login(email);
+                } }
+                logout={ () => {
+                    logout();
+                } }
+                authStatus={ authStatus }
+                setAuthStatus={ (newStatus) => {
+                    setAuthStatus(newStatus);
+                } }
+                checkIsLogged={ checkIsLogged }/>
+        </>
+    );
 }

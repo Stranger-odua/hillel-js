@@ -1,24 +1,21 @@
-function Authorization({login, authStatus, setAuthStatus, logout}) {
+function Authorization({login, authStatus, setAuthStatus, logout, checkIsLogged}) {
     const loginFormStyle = authStatus ? {display: 'none'} : {display: 'block'};
     const logoutButtonStyle = authStatus ? {display: 'block'} : {display: 'none'};
 
-
-    const handleLogin = (e) => {
+    const handleLogin = async (e) => {
         e.preventDefault();
-        //FIXME передати email в функцію
-        // const email = e.target.firstChild.nextSibling.value.trim();
-        login('rogaandkopyta@mail.com');
-        //TODO здесь ссылка на ту же функию (тот же объект)
-        // if (authStatus === false) setAuthStatus(checkIsLogged());
-        if (authStatus === false) setAuthStatus(true);
+        const email = e.target.firstChild.nextSibling.value.trim();
+        if (email.length > 0) {
+            await login(email);
+            if (authStatus === false) setAuthStatus(checkIsLogged());
+        }
+        // Поле вводу для email спеціально не очищаю, щоб кожен раз не набирати
     };
 
     const handleLogout = (e) => {
         e.preventDefault();
         logout();
-        //TODO здесь ссылка на ту же функию (тот же объект)
-        // if (authStatus === true) setAuthStatus(checkIsLogged());
-        if (authStatus === true) setAuthStatus(false);
+        if (authStatus === true) setAuthStatus(checkIsLogged());
     };
 
     return <>

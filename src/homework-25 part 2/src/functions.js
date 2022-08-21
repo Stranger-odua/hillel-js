@@ -1,3 +1,6 @@
+const baseUrl = 'https://todo.hillel.it';
+const defaultPriority = 1;
+
 export function checkIsLogged() {
     return !!JSON.parse(localStorage.getItem('Logged'));
 }
@@ -8,7 +11,7 @@ export async function login(email) {
     headers.set('Content-Type', 'application/json');
 
     try {
-        const resp = await fetch(`https://todo.hillel.it/auth/login`, {
+        const resp = await fetch(`${ baseUrl }/auth/login`, {
             method: 'POST', headers, body: reqBody,
         });
         const {access_token: accessToken} = await resp.json();
@@ -19,47 +22,128 @@ export async function login(email) {
 }
 
 export function logout() {
-    return localStorage.removeItem('Logged');
+    localStorage.removeItem('Logged');
 }
 
-export function createTodo(value) {
-    return {
-        _id: new Date().getTime(),
-        value,
-        checked: false,
-    };
+export async function addTodo(todos, value, priority = defaultPriority) {
+    const reqBody = JSON.stringify({value, priority});
+    const {token} = JSON.parse(localStorage.getItem('Logged'));
+
+    const headers = new Headers();
+    headers.set('Authorization', `Bearer ${ token }`);
+    headers.set('Content-Type', 'application/json');
+
+    const resp = await fetch(`${ baseUrl }/todo`, {
+        method: 'POST', headers, body: reqBody,
+    });
+
+    const task = await resp.json();
+    return [...todos, task];
 }
 
-export function addTodo(todos, value) {
-    return [...todos, createTodo(value)];
+export async function removeTodo(todos, id) {
+    const {token} = JSON.parse(localStorage.getItem('Logged'));
+    const headers = new Headers();
+    headers.set('Authorization', `Bearer ${ token }`);
+    headers.set('Content-Type', 'application/json');
+    await fetch(`${ baseUrl }/todo/${ id }`, {
+        method: 'DELETE', headers,
+    });
+
+    return todos.filter((task) => task._id !== id);
 }
 
-export function removeTodo(todos, id) {
-    return todos.filter((todo) => todo._id !== id);
-}
+export async function toggleTodo(todos, id) {
+    const {token} = JSON.parse(localStorage.getItem('Logged'));
+    const headers = new Headers();
+    headers.set('Authorization', `Bearer ${ token }`);
+    headers.set('Content-Type', 'application/json');
 
-export function toggleTodo(todos, id) {
-    return todos.map((todo) => {
-        if (todo._id === id) {
-            return {...todo, checked: !todo.checked};
+    const resp = await fetch(`${ baseUrl }/todo/${ id }/toggle`, {
+        method: 'PUT', headers,
+    });
+
+    const toggledTask = await resp.json();
+
+    return todos.map((task) => {
+        if (task._id === toggledTask._id) {
+            return {...task, checked: !task.checked};
         }
 
-        return todo;
+        return task;
     });
 }
 
-export function toggleTodos(todos) {
-    const isHaveActiveTodos = !!todos.find((todo) => todo.checked === false);
-    return todos.map((todo) => ({...todo, checked: isHaveActiveTodos}));
+export async function toggleTodos(todos) {
+    const areThereActiveTasks = !!todos.find((todo) => todo.checked === false);
+    const toggledTaskIds = todos.reduce((ids, task) => {
+        if (task.checked === !areThereActiveTasks) ids.push(task._id);
+        return ids;
+    }, []);
+
+    const {token} = JSON.parse(localStorage.getItem('Logged'));
+    const headers = new Headers();
+    headers.set('Authorization', `Bearer ${ token }`);
+    headers.set('Content-Type', 'application/json');
+
+    for (const id of toggledTaskIds) {
+        const resp = await fetch(`${ baseUrl }/todo/${ id }/toggle`, {
+            method: 'PUT', headers,
+        });
+
+        const toggledTask = await resp.json();
+        todos.forEach((todo) => {
+            if (todo._id === toggledTask._id) {
+                todo.checked = toggledTask.checked;
+            }
+        });
+    }
+
+    return [...todos];
 }
 
-export function clearCompletedTodos(todos) {
-    return todos.filter((todo) => !todo.checked);
+export async function clearCompletedTodos(todos) {
+    const remainingTasks = [];
+    const clearedTaskIds = todos.reduce((ids, task) => {
+        if (task.checked) {
+            ids.push(task._id);
+        } else {
+            remainingTasks.push(task);
+        }
+        return ids;
+    }, []);
+
+    const {token} = JSON.parse(localStorage.getItem('Logged'));
+    const headers = new Headers();
+    headers.set('Authorization', `Bearer ${ token }`);
+    headers.set('Content-Type', 'application/json');
+
+    for (const id of clearedTaskIds) {
+        await fetch(`${ baseUrl }/todo/${ id }`, {
+            method: 'DELETE', headers,
+        });
+    }
+
+    return remainingTasks;
 }
 
-export function updateTodo(todos, id, todo) {
+export async function updateTodo(todos, id, todo, priority = defaultPriority) {
+    console.log(`todo in updateTodo 131`, todo);
+
+    const {token} = JSON.parse(localStorage.getItem('Logged'));
+    const headers = new Headers();
+    headers.set('Authorization', `Bearer ${ token }`);
+    headers.set('Content-Type', 'application/json');
+    const reqBody = JSON.stringify({value: todo.value, priority});
+
+    const resp = await fetch(`${ baseUrl }/todo/${ id }`, {
+        method: 'PUT', headers, body: reqBody,
+    });
+
+    const editedTask = await resp.json();
+
     return todos.map((eachTodo) => {
-        if (eachTodo._id === id) {
+        if (eachTodo._id === editedTask._id) {
             return {...eachTodo, ...todo};
         }
 
@@ -68,8 +152,6 @@ export function updateTodo(todos, id, todo) {
 }
 
 export function filterTodos(todos, filter) {
-    // console.log('todos in filterTodos: ', todos);
-
     if (filter === 'active') {
         return todos.filter((todo) => !todo.checked);
     }
@@ -82,9 +164,7 @@ export function filterTodos(todos, filter) {
 }
 
 export function countItems(todos) {
-    // console.log('todos ', todos);
-
-    if (todos !== undefined) {
+    if (todos.length > 0) {
         const all = todos.length;
         const left = todos.filter((todo) => !todo.checked).length;
         const completed = todos.filter((todo) => todo.checked).length;
@@ -95,23 +175,23 @@ export function countItems(todos) {
 }
 
 export async function getList() {
-    const {token} = JSON.parse(localStorage.getItem('Logged')) ? JSON.parse(localStorage.getItem('Logged')) : false;
-
-    // console.log('token in getList: ', token);
+    const {token} = JSON.parse(localStorage.getItem('Logged'))
+        ? JSON.parse(localStorage.getItem('Logged'))
+        : false;
 
     if ( !!token) {
         const headers = new Headers();
         headers.set('Authorization', `Bearer ${ token }`);
         headers.set('Content-Type', 'application/json');
         try {
-            const resp = await fetch(`https://todo.hillel.it/todo`, {
+            const resp = await fetch(`${ baseUrl }/todo`, {
                 method: 'GET', headers,
             });
 
-            return await resp.json();
+            const result = await resp.json();
+            return await result;
         } catch (e) {
             console.log(e);
         }
     }
 }
-

@@ -94,7 +94,6 @@ class TodolistModel {
         const editedTaskIndex = this.list.findIndex(task => task._id === editedTask._id);
         const deleteCount = 1;
         this.list.splice(editedTaskIndex, deleteCount, editedTask);
-
     }
 
     async changeStatus(id) {
@@ -111,7 +110,6 @@ class TodolistModel {
         const editedTaskIndex = this.list.findIndex(task => task._id === editedTask._id);
         const deleteCount = 1;
         this.list.splice(editedTaskIndex, deleteCount, editedTask);
-
     }
 
     getStatusesCount() {

@@ -5,8 +5,8 @@ export default function TodoToggleAll({toggleTodos}) {
                 id="toggle-all"
                 className="toggle-all"
                 type="checkbox"
-                onClick={ () => {
-                    toggleTodos();
+                onClick={ async () => {
+                    await toggleTodos();
                 } }
             />
             <label htmlFor="toggle-all">Mark all as complete</label>

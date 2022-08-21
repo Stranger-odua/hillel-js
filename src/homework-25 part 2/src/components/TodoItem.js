@@ -19,10 +19,10 @@ export default function TodoItem({
         if (nodeEl) nodeEl.focus();
     };
 
-    const handlerOnSubmit = (e) => {
+    const handlerOnSubmit = async (e) => {
         e.preventDefault();
         setEdit(false);
-        updateTodo(_id, {value: title, checked: false});
+        await updateTodo(_id, {value: title, checked: false});
     };
 
     return (<li className={ className }>

@@ -1,1 +1,1 @@
-React. Dynamic visualization of data
+React. Static visualization of data

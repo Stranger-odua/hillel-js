@@ -1,11 +1,9 @@
 import TodoItem from './TodoItem';
+import { useContext } from 'react';
+import { AppContext } from '../App';
 
-export default function ToDoList({
-    todos,
-    toggleTodo,
-    removeTodo,
-    updateTodo,
-}) {
+export default function ToDoList() {
+    const {todos} = useContext(AppContext);
     return (
         <ul className="todo-list">
             { todos.map((todo) => {
@@ -13,9 +11,6 @@ export default function ToDoList({
                     <TodoItem
                         key={ todo._id }
                         { ...todo }
-                        toggleTodo={ toggleTodo }
-                        removeTodo={ removeTodo }
-                        updateTodo={ updateTodo }
                     />
                 );
             }) }

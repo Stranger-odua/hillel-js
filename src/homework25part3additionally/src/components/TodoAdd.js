@@ -1,11 +1,18 @@
-export default function TodoAdd({addTodo}) {
+import { useContext } from 'react';
+import { AppContext } from '../App';
+
+export default function TodoAdd() {
+    const {todos} = useContext(AppContext);
+    const {setTodos} = useContext(AppContext);
+    const {addTodo} = useContext(AppContext);
+
     return <input
         className="new-todo"
         placeholder="What needs to be done?"
-        onKeyDown={ (e) => {
+        onKeyDown={ async (e) => {
             if (e.key === 'Enter' && e.target.value.trim()) {
                 e.preventDefault();
-                addTodo(e.target.value.trim());
+                setTodos(await addTodo(todos, e.target.value.trim()));
                 e.target.value = '';
             }
         } }

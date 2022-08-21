@@ -1,4 +1,10 @@
-export default function TodoToggleAll({toggleTodos}) {
+import { useContext } from 'react';
+import { AppContext } from '../App';
+
+export default function TodoToggleAll() {
+    const {todos} = useContext(AppContext);
+    const {setTodos} = useContext(AppContext);
+    const {toggleTodos} = useContext(AppContext);
     return (
         <>
             <input
@@ -6,7 +12,7 @@ export default function TodoToggleAll({toggleTodos}) {
                 className="toggle-all"
                 type="checkbox"
                 onClick={ async () => {
-                    await toggleTodos();
+                    setTodos(await toggleTodos(todos));
                 } }
             />
             <label htmlFor="toggle-all">Mark all as complete</label>

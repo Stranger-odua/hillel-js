@@ -1,13 +1,17 @@
-export default function TodoFilter({filter, updateFilter}) {
+import { useContext } from 'react';
+import { AppContext } from '../App';
+
+export default function TodoFilter() {
+    const {filter} = useContext(AppContext);
+    const {setFilter} = useContext(AppContext);
     return (
         <ul className="filters">
             <li>
                 <a
-                    href="/"
+                    href="#/all"
                     className={ filter === 'all' ? 'selected' : '' }
-                    onClick={ (event) => {
-                        event.preventDefault();
-                        updateFilter('all');
+                    onClick={ () => {
+                        setFilter('all');
                     } }
                 >
                     All
@@ -15,11 +19,10 @@ export default function TodoFilter({filter, updateFilter}) {
             </li>
             <li>
                 <a
+                    href="#/active"
                     className={ filter === 'active' ? 'selected' : '' }
-                    href="/active"
-                    onClick={ (event) => {
-                        event.preventDefault();
-                        updateFilter('active');
+                    onClick={ () => {
+                        setFilter('active');
                     } }
                 >
                     Active
@@ -27,11 +30,10 @@ export default function TodoFilter({filter, updateFilter}) {
             </li>
             <li>
                 <a
+                    href="#/completed"
                     className={ filter === 'completed' ? 'selected' : '' }
-                    href="/completed"
-                    onClick={ (event) => {
-                        event.preventDefault();
-                        updateFilter('completed');
+                    onClick={ () => {
+                        setFilter('completed');
                     } }
                 >
                     Completed

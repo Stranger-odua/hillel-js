@@ -1,10 +1,12 @@
 import './styles.css';
-import { useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import TodoHeader from './components/TodoHeader.js';
 import TodoToggleAll from './components/TodoToggleAll';
-import TodoList from './components/TodoList';
 import Authorization from './components/Authorization';
-
+import TodoFooter from './components/TodoFooter';
+import All from './pages/All';
+import Active from './pages/Active';
+import Completed from './pages/Completed';
 import {
     filterTodos,
     toggleTodo,
@@ -18,10 +20,10 @@ import {
     logout,
     getList, clearCompletedTodos,
 } from './functions';
-import TodoFooter from './components/TodoFooter';
-import All from './pages/All';
 
-export default function App() {
+export const AppContext = React.createContext();
+
+function App() {
     const initialFilter = 'all';
     const initialTodos = [];
     const [authStatus, setAuthStatus] = useState(checkIsLogged);
@@ -31,7 +33,28 @@ export default function App() {
     const {all: itemsTotal, completed: itemsCompleted, left: itemsLeft} = countItems(todos);
     const appSectionStyle = authStatus ? {display: 'block'} : {display: 'none'};
     const mainSectionStyle = itemsTotal > 0 ? {display: 'block'} : {display: 'none'};
+    const [route, setRoute] = useState(window.location.hash.substr(1));
 
+    let TodoListPage;
+    switch (route) {
+    case '/all':
+        TodoListPage = All;
+        break;
+    case '/active':
+        TodoListPage = Active;
+        break;
+    case '/completed':
+        TodoListPage = Completed;
+        break;
+    default:
+        TodoListPage = All;
+    }
+
+    useEffect(() => {
+        window.addEventListener('hashchange', () => {
+            setRoute(window.location.hash.substr(1));
+        });
+    });
 
     useEffect(() => {
         let newTodoList = [];
@@ -47,53 +70,38 @@ export default function App() {
     }, [authStatus]);
 
     return (
-        <>
-            <All/>
-            <section className="todoapp" style={ appSectionStyle }>
-                <TodoHeader addTodo={ async (title) => {
-                    setTodos(await addTodo(todos, title));
-                } }
-                />
-                <section className="main" style={ mainSectionStyle }>
-                    <TodoToggleAll toggleTodos={ async () => {
-                        setTodos(await toggleTodos(todos));
-                    } }/>
-                    <TodoList
-                        todos={ filteredTodos }
-                        toggleTodo={ async (id) => {
-                            setTodos(await toggleTodo(todos, id));
-                        } }
-                        removeTodo={ async (id) => {
-                            setTodos(await removeTodo(todos, id));
-                        } }
-                        updateTodo={ async (id, todo) => {
-                            setTodos(await updateTodo(todos, id, todo));
-                        } }
-                    />
+        <AppContext.Provider value={ {
+            todos: filteredTodos, setTodos,
+            addTodo, updateTodo, removeTodo,
+            toggleTodos, toggleTodo, clearCompletedTodos,
+            filter, setFilter,
+            itemsLeft, itemsCompleted,
+        } }>
+            <>
+                <section className="todoapp" style={ appSectionStyle }>
+                    <TodoHeader/>
+                    <section className="main" style={ mainSectionStyle }>
+                        <TodoToggleAll/>
+                        <TodoListPage/>
+                    </section>
+                    <TodoFooter itemsTotal={ itemsTotal }/>
                 </section>
 
-                <TodoFooter
-                    filter={ filter }
-                    updateFilter={ (filter) => setFilter(filter) }
-                    clearCompletedTodos={ async () => setTodos(await clearCompletedTodos(todos)) }
-                    itemsTotal={ itemsTotal }
-                    itemsCompleted={ itemsCompleted }
-                    itemsLeft={ itemsLeft }
-                />
-            </section>
-
-            <Authorization
-                login={ async (email) => {
-                    await login(email);
-                } }
-                logout={ () => {
-                    logout();
-                } }
-                authStatus={ authStatus }
-                setAuthStatus={ (newStatus) => {
-                    setAuthStatus(newStatus);
-                } }
-                checkIsLogged={ checkIsLogged }/>
-        </>
+                <Authorization
+                    login={ async (email) => {
+                        await login(email);
+                    } }
+                    logout={ () => {
+                        logout();
+                    } }
+                    authStatus={ authStatus }
+                    setAuthStatus={ (newStatus) => {
+                        setAuthStatus(newStatus);
+                    } }
+                    checkIsLogged={ checkIsLogged }/>
+            </>
+        </AppContext.Provider>
     );
 }
+
+export default App;

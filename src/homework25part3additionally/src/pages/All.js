@@ -1,15 +1,5 @@
-const baseUrl = 'http://localhost:3000/';
+import TodoList from '../components/TodoList';
 
-function onClickHandler(e) {
-    e.preventDefault();
-    // window.location.assign(window.location.host + '/all');
-    // window.location.href = `${ window.location.host }/all`;
-    // window.location.replace(`all`);
-}
+const All = () => <TodoList/>;
 
-export default function All() {
-    console.dir(window.location);
-    // return <a href={ '/all' }>Посилання</a>;
-    // return <a href={ '/all' } onClick={ onClickHandler }>Посилання</a>;
-}
-
+export default All;

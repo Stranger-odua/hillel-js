@@ -1,7 +1,11 @@
-function TodoItemsLeft({leftItems}) {
+import { useContext } from 'react';
+import { AppContext } from '../App';
+
+function TodoItemsLeft() {
+    const {itemsLeft} = useContext(AppContext);
     return (
         <span className="todo-count">
-      <strong>{ leftItems }</strong> items left
+      <strong>{ itemsLeft }</strong> items left
     </span>
     );
 }

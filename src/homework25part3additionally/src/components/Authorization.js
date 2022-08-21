@@ -9,7 +9,7 @@ function Authorization({login, authStatus, setAuthStatus, logout, checkIsLogged}
             await login(email);
             if (authStatus === false) setAuthStatus(checkIsLogged());
         }
-        // Поле вводу для email спеціально не очищаю, щоб кожен раз не набирати
+        // Поле вводу для email спеціально не очищаю, щоб кожен раз не набирати для зручності
     };
 
     const handleLogout = (e) => {

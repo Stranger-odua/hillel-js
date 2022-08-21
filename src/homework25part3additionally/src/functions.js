@@ -28,17 +28,21 @@ export function logout() {
 export async function addTodo(todos, value, priority = defaultPriority) {
     const reqBody = JSON.stringify({value, priority});
     const {token} = JSON.parse(localStorage.getItem('Logged'));
+    const isAvailableTask = !!todos.find((task) => task.value === value);
 
     const headers = new Headers();
     headers.set('Authorization', `Bearer ${ token }`);
     headers.set('Content-Type', 'application/json');
 
-    const resp = await fetch(`${ baseUrl }/todo`, {
-        method: 'POST', headers, body: reqBody,
-    });
+    if ( !isAvailableTask) {
+        const resp = await fetch(`${ baseUrl }/todo`, {
+            method: 'POST', headers, body: reqBody,
+        });
 
-    const task = await resp.json();
-    return [...todos, task];
+        const task = await resp.json();
+        return [...todos, task];
+    }
+    return todos;
 }
 
 export async function removeTodo(todos, id) {
@@ -128,8 +132,6 @@ export async function clearCompletedTodos(todos) {
 }
 
 export async function updateTodo(todos, id, todo, priority = defaultPriority) {
-    console.log(`todo in updateTodo 131`, todo);
-
     const {token} = JSON.parse(localStorage.getItem('Logged'));
     const headers = new Headers();
     headers.set('Authorization', `Bearer ${ token }`);

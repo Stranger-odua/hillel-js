@@ -1,7 +1,6 @@
 // TODO реалізувати спінери
 
 import './styles.css';
-import React, { useState } from 'react';
 import TodoHeader from './components/TodoHeader.js';
 import TodoToggleAll from './components/TodoToggleAll';
 import TodoFooter from './components/TodoFooter';

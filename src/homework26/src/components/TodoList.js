@@ -3,8 +3,9 @@ import { useGetTodosQuery } from '../todoApi';
 import { useSelector } from 'react-redux';
 
 export default function ToDoList() {
-    const {data: todos = [], isLoading} = useGetTodosQuery();
-    const filter = useSelector(state => state.footer.filter);
+    const token = useSelector(state => state.user.token);
+    const {data: todos = [], isLoading} = useGetTodosQuery(token);
+    const filter = useSelector(state => state.todo.filter);
 
     const filteredTodos = (todos) => {
         if (filter === 'active') {
@@ -18,7 +19,7 @@ export default function ToDoList() {
         return todos;
     };
 
-    if (isLoading) return <h1>Loading1...</h1>;
+    if (isLoading) return <div className={ 'loader' }></div>;
 
     return (
         <ul className="todo-list">

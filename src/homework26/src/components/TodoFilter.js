@@ -1,16 +1,16 @@
 import { useDispatch, useSelector } from 'react-redux';
 import { setFilter } from '../todoSlice';
 
-export default function TodoFilter({updateFilter}) {
+export default function TodoFilter() {
     const dispatch = useDispatch();
-    const filter = useSelector(state => state.footer.filter);
+    const currentFilter = useSelector(state => state.todo.filter);
 
     return (
         <ul className="filters">
             <li>
                 <a
                     href="/"
-                    className={ filter === 'all' ? 'selected' : '' }
+                    className={ currentFilter === 'all' ? 'selected' : '' }
                     onClick={ (event) => {
                         event.preventDefault();
                         dispatch(setFilter({filter: 'all'}));
@@ -21,7 +21,7 @@ export default function TodoFilter({updateFilter}) {
             </li>
             <li>
                 <a
-                    className={ filter === 'active' ? 'selected' : '' }
+                    className={ currentFilter === 'active' ? 'selected' : '' }
                     href="/active"
                     onClick={ (event) => {
                         event.preventDefault();
@@ -33,7 +33,7 @@ export default function TodoFilter({updateFilter}) {
             </li>
             <li>
                 <a
-                    className={ filter === 'completed' ? 'selected' : '' }
+                    className={ currentFilter === 'completed' ? 'selected' : '' }
                     href="/completed"
                     onClick={ (event) => {
                         event.preventDefault();

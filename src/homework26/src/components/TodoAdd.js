@@ -1,7 +1,9 @@
 import { useAddTodoMutation, useGetTodosQuery } from '../todoApi';
+import { useSelector } from 'react-redux';
 
 export default function TodoAdd() {
-    const {data: todos = []} = useGetTodosQuery();
+    const token = useSelector(state => state.user.token);
+    const {data: todos = []} = useGetTodosQuery(token);
     const [addTodo] = useAddTodoMutation();
 
     const handleOnEnterKeyDown = async (e) => {
@@ -13,7 +15,7 @@ export default function TodoAdd() {
 
         if (conditions) {
             e.preventDefault();
-            await addTodo(inputtedText.trim()).unwrap();
+            await addTodo({text: inputtedText.trim(), token: token});
             e.target.value = '';
         }
     };

@@ -12,7 +12,9 @@ export async function login(email) {
 
     try {
         const resp = await fetch(`${ baseUrl }/auth/login`, {
-            method: 'POST', headers, body: reqBody,
+            method: 'POST',
+            headers,
+            body: reqBody,
         });
         const {access_token: accessToken} = await resp.json();
         localStorage.setItem('Logged', JSON.stringify({email, token: accessToken}));
@@ -141,12 +143,14 @@ export async function updateTodo(todos, id, todo, priority = defaultPriority) {
     const reqBody = JSON.stringify({value: todo.value, priority});
 
     const resp = await fetch(`${ baseUrl }/todo/${ id }`, {
-        method: 'PUT', headers, body: reqBody,
+        method: 'PUT',
+        headers,
+        body: reqBody,
     });
 
     const editedTask = await resp.json();
 
-    return todos.map((eachTodo) => {
+    return todos.map(eachTodo => {
         if (eachTodo._id === editedTask._id) {
             return {...eachTodo, ...todo};
         }
@@ -157,11 +161,11 @@ export async function updateTodo(todos, id, todo, priority = defaultPriority) {
 
 export function filterTodos(todos, filter) {
     if (filter === 'active') {
-        return todos.filter((todo) => !todo.checked);
+        return todos.filter(todo => !todo.checked);
     }
 
     if (filter === 'completed') {
-        return todos.filter((todo) => todo.checked);
+        return todos.filter(todo => todo.checked);
     }
 
     return todos;
@@ -170,8 +174,8 @@ export function filterTodos(todos, filter) {
 export function countItems(todos) {
     if (todos.length > 0) {
         const all = todos.length;
-        const left = todos.filter((todo) => !todo.checked).length;
-        const completed = todos.filter((todo) => todo.checked).length;
+        const left = todos.filter(todo => !todo.checked).length;
+        const completed = todos.filter(todo => todo.checked).length;
         return {all, left, completed};
     } else {
         return {all: 0, left: 0, completed: 0};
@@ -179,9 +183,7 @@ export function countItems(todos) {
 }
 
 export async function getList() {
-    const {token} = JSON.parse(localStorage.getItem('Logged'))
-        ? JSON.parse(localStorage.getItem('Logged'))
-        : false;
+    const {token} = JSON.parse(localStorage.getItem('Logged')) ? JSON.parse(localStorage.getItem('Logged')) : false;
 
     if ( !!token) {
         const headers = new Headers();
@@ -189,7 +191,8 @@ export async function getList() {
         headers.set('Content-Type', 'application/json');
         try {
             const resp = await fetch(`${ baseUrl }/todo`, {
-                method: 'GET', headers,
+                method: 'GET',
+                headers,
             });
 
             const result = await resp.json();

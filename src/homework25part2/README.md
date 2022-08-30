@@ -1,1 +1,1 @@
-React. Dynamic visualization of data
+React. Dynamic visualization of data with RTK Query

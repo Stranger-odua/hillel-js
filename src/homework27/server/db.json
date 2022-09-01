@@ -1,0 +1,258 @@
+{
+  "carousel": [
+    {
+      "id": 0,
+      "name": "Chicken cashew",
+      "price": "€25.80",
+      "path": "/assets/carousel/chicken_cashew.png",
+      "isVegeterian": false,
+      "nutsIncludes": true,
+      "spiciness": 1
+    },
+    {
+      "id": 1,
+      "name": "Chicken loempias",
+      "price": "€25.30",
+      "path": "/assets/carousel/chicken_loempias.png",
+      "isVegeterian": true,
+      "nutsIncludes": true,
+      "spiciness": 2
+    },
+    {
+      "id": 2,
+      "name": "Penang shrimp",
+      "price": "€29.60",
+      "path": "/assets/carousel/penang_shrimp.png",
+      "isVegeterian": true,
+      "nutsIncludes": true,
+      "spiciness": 3
+    },
+    {
+      "id": 3,
+      "name": "Red curry vega",
+      "price": "€12.80",
+      "path": "/assets/carousel/red_curry_vega.png",
+      "isVegeterian": true,
+      "nutsIncludes": true,
+      "spiciness": 1
+    }
+  ],
+  "products": [
+    {
+      "id": 0,
+      "name": "Beef massaman",
+      "price": "€6.40",
+      "path": "/assets/products/beef_massaman.png",
+      "isVegeterian": true,
+      "nutsIncludes": false,
+      "spiciness": 5
+    },
+    {
+      "id": 1,
+      "name": "Chicken cashew",
+      "price": "€26.70",
+      "path": "/assets/products/chicken_cashew.png",
+      "isVegeterian": false,
+      "nutsIncludes": false,
+      "spiciness": 0
+    },
+    {
+      "id": 2,
+      "name": "Chicken loempias",
+      "price": "€19.80",
+      "path": "/assets/products/chicken_loempias.png",
+      "isVegeterian": true,
+      "nutsIncludes": true,
+      "spiciness": 4
+    },
+    {
+      "id": 3,
+      "name": "Chu chee",
+      "price": "€23.00",
+      "path": "/assets/products/chu_chee.png",
+      "isVegeterian": false,
+      "nutsIncludes": true,
+      "spiciness": 0
+    },
+    {
+      "id": 4,
+      "name": "Fish cakes",
+      "price": "€29.60",
+      "path": "/assets/products/fish_cakes.png",
+      "isVegeterian": true,
+      "nutsIncludes": false,
+      "spiciness": 3
+    },
+    {
+      "id": 5,
+      "name": "Fried noodles",
+      "price": "€22.30",
+      "path": "/assets/products/fried_noodles.png",
+      "isVegeterian": true,
+      "nutsIncludes": false,
+      "spiciness": 1
+    },
+    {
+      "id": 6,
+      "name": "Fried rice",
+      "price": "€13.10",
+      "path": "/assets/products/fried_rice.png",
+      "isVegeterian": false,
+      "nutsIncludes": false,
+      "spiciness": 2
+    },
+    {
+      "id": 7,
+      "name": "Green curry",
+      "price": "€9.80",
+      "path": "/assets/products/green_curry.png",
+      "isVegeterian": true,
+      "nutsIncludes": true,
+      "spiciness": 2
+    },
+    {
+      "id": 8,
+      "name": "King salad",
+      "price": "€27.60",
+      "path": "/assets/products/king_salad.png",
+      "isVegeterian": true,
+      "nutsIncludes": false,
+      "spiciness": 2
+    },
+    {
+      "id": 9,
+      "name": "Koong hom pha",
+      "price": "€22.40",
+      "path": "/assets/products/koong_hom_pha.png",
+      "isVegeterian": true,
+      "nutsIncludes": true,
+      "spiciness": 1
+    },
+    {
+      "id": 10,
+      "name": "Krapau vega",
+      "price": "€13.50",
+      "path": "/assets/products/krapau_vega.png",
+      "isVegeterian": true,
+      "nutsIncludes": false,
+      "spiciness": 2
+    },
+    {
+      "id": 11,
+      "name": "Kroepoek",
+      "price": "€7.80",
+      "path": "/assets/products/kroepoek.png",
+      "isVegeterian": false,
+      "nutsIncludes": false,
+      "spiciness": 4
+    },
+    {
+      "id": 12,
+      "name": "Laab kai chicken salad",
+      "price": "€18.10",
+      "path": "/assets/products/laab_kai_chicken_salad.png",
+      "isVegeterian": false,
+      "nutsIncludes": true,
+      "spiciness": 4
+    },
+    {
+      "id": 13,
+      "name": "Mini vega springrolls",
+      "price": "€21.20",
+      "path": "/assets/products/mini_vega_springrolls.png",
+      "isVegeterian": false,
+      "nutsIncludes": true,
+      "spiciness": 1
+    },
+    {
+      "id": 14,
+      "name": "Red curry",
+      "price": "€21.60",
+      "path": "/assets/products/red_curry.png",
+      "isVegeterian": false,
+      "nutsIncludes": false,
+      "spiciness": 0
+    },
+    {
+      "id": 15,
+      "name": "Sate",
+      "price": "€23.40",
+      "path": "/assets/products/sate.png",
+      "isVegeterian": true,
+      "nutsIncludes": true,
+      "spiciness": 2
+    },
+    {
+      "id": 16,
+      "name": "Satesaus",
+      "price": "€22.80",
+      "path": "/assets/products/satesaus.png",
+      "isVegeterian": false,
+      "nutsIncludes": false,
+      "spiciness": 3
+    },
+    {
+      "id": 17,
+      "name": "Som tam papaya salad",
+      "price": "€23.30",
+      "path": "/assets/products/som_tam_papaya_salad.png",
+      "isVegeterian": true,
+      "nutsIncludes": true,
+      "spiciness": 3
+    },
+    {
+      "id": 18,
+      "name": "Stir fried vegetables",
+      "price": "€15.10",
+      "path": "/assets/products/stir_fried_vegetables.png",
+      "isVegeterian": true,
+      "nutsIncludes": false,
+      "spiciness": 1
+    },
+    {
+      "id": 19,
+      "name": "Sweet n sour",
+      "price": "€5.70",
+      "path": "/assets/products/sweet_n_sour.png",
+      "isVegeterian": true,
+      "nutsIncludes": true,
+      "spiciness": 3
+    },
+    {
+      "id": 20,
+      "name": "Tofu cashew",
+      "price": "€22.90",
+      "path": "/assets/products/tofu_cashew.png",
+      "isVegeterian": true,
+      "nutsIncludes": true,
+      "spiciness": 2
+    },
+    {
+      "id": 21,
+      "name": "Tom kha",
+      "price": "€23.00",
+      "path": "/assets/products/tom_kha.png",
+      "isVegeterian": true,
+      "nutsIncludes": false,
+      "spiciness": 5
+    },
+    {
+      "id": 22,
+      "name": "Tom yam",
+      "price": "€23.70",
+      "path": "/assets/products/tom_yam.png",
+      "isVegeterian": true,
+      "nutsIncludes": true,
+      "spiciness": 5
+    },
+    {
+      "id": 23,
+      "name": "Witte rijst",
+      "price": "€22.20",
+      "path": "/assets/products/witte_rijst.png",
+      "isVegeterian": false,
+      "nutsIncludes": true,
+      "spiciness": 1
+    }
+  ]
+}

@@ -10,8 +10,8 @@
     "react-scripts": "5.0.1"
   },
   "scripts": {
-    "start-client": "react-scripts start",
-    "build": "react-scripts build"
+    "client": "react-scripts start",
+    "component": "generate-react component"
   },
   "eslintConfig": {
     "extends": [

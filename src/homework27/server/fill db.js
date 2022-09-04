@@ -28,10 +28,11 @@ const createJSONDataBasedOnFilesInDirectories = (folders) => {
                 id: i,
                 name: transformName(fileName),
                 price: `€${ getRandomPrice(5, 30) }`,
-                path: `${ folder.slice(8) }/${ fileName }`,
-                isVegeterian: Math.random() > 0.5,
-                nutsIncludes: Math.random() > 0.5,
-                spiciness: Math.round((Math.random() * 100)) % 6,
+                imagePath: `${ folder.slice(8) }/${ fileName }`,
+                vegeterian: Math.random() > 0.5,
+                nuts: Math.random() > 0.5,
+                spiciness: Math.round((Math.random() * 100)) % 5,
+                category: '',
             });
         });
     });

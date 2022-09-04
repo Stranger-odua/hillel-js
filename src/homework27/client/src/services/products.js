@@ -1,61 +1,77 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/query/react';
+import { BASE_URL } from '../constants';
 
 export const productsApi = createApi({
     reducerPath: 'productsApi',
     baseQuery: fetchBaseQuery({
-        baseUrl: `${ process.env.REACT_APP_BASE_URL }`,
+        baseUrl: `${ BASE_URL }`,
     }),
     endpoints: (builder) => ({
-        getProducts: builder.query({
+        getAllProducts: builder.query({
             query: () => ({
                 url: `/products`,
                 method: 'GET',
             }),
         }),
-
-
-        getPostById: builder.query({
-            query: (id) => ({
-                url: `posts/${ id }`,
+        getSalads: builder.query({
+            query: () => ({
+                url: `/products/?path=salads`,
                 method: 'GET',
             }),
         }),
-        createPost: builder.mutation({
-            query: (newpost) => ({
-                url: `posts`,
-                method: 'POST',
-                body: newpost,
-                headers: {
-                    'Content-type': 'application/json; charset=UTF-8',
-                },
+        getSoups: builder.query({
+            query: () => ({
+                url: `/products/?path=soups`,
+                method: 'GET',
             }),
         }),
-        deletePostById: builder.mutation({
-            query: (id) => ({
-                url: `posts/${ id }`,
-                method: 'DELETE',
+        getChickenDishes: builder.query({
+            query: () => ({
+                url: `/products/?path=chickendishes`,
+                method: 'GET',
             }),
         }),
-        updatePostById: builder.mutation({
-            query: (updatePost) => {
-                const {id, ...data} = updatePost;
-                return {
-                    url: `posts/${ id }`,
-                    method: 'PUT',
-                    body: data,
-                    headers: {
-                        'Content-type': 'application/json; charset=UTF-8',
-                    },
-                };
-            },
+        getBeefDishes: builder.query({
+            query: () => ({
+                url: `/products/?path=beefdishes`,
+                method: 'GET',
+            }),
+        }),
+        getSeafoodDishes: builder.query({
+            query: () => ({
+                url: `/products/?path=seafooddishes`,
+                method: 'GET',
+            }),
+        }),
+        getVegetableDishes: builder.query({
+            query: () => ({
+                url: `/products/?path=vegetabledishes`,
+                method: 'GET',
+            }),
+        }),
+        getBitsAndBites: builder.query({
+            query: () => ({
+                url: `/products/?path=bitsandbites`,
+                method: 'GET',
+            }),
+        }),
+        getOnTheSideDishes: builder.query({
+            query: () => ({
+                url: `/products/?path=ontheside`,
+                method: 'GET',
+            }),
         }),
     }),
 });
 
 export const {
-    useGetProductsQuery,
-    useGetPostByIdQuery,
-    useDeletePostByIdMutation,
-    useCreatePostMutation,
-    useUpdatePostByIdMutation,
+    useGetAllProductsQuery,
+    useGetSaladsQuery,
+    useGetSoupsQuery,
+    useGetChickenDishesQuery,
+    useGetBeefDishesQuery,
+    useGetSeafoodDishesQuery,
+    useGetVegetableDishesQuery,
+    useGetBitsAndBitesQuery,
+    useGetOnTheSideDishesQuery,
 } = productsApi;

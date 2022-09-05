@@ -1,13 +1,13 @@
 import './StepSlider.style.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { setDragging, setSpicinessFilter } from '../../reducers/filters';
+import { setSpicinessFilter } from '../../reducers/filters';
 import { useEffect, useRef, useState } from 'react';
 
 const StepSlider = ({sliderSteps}) => {
     const dispatch = useDispatch();
     const sliderRef = useRef();
     const spicinessValue = useSelector(state => state.filters.filters.spiciness);
-    const dragging = useSelector(state => state.filters.stepSlider.dragging);
+    const [dragging, setDragging] = useState(false);
 
     const parts = sliderSteps.length - 1;
     const toPercent = (spiciness) => spiciness / parts * 100;
@@ -26,7 +26,7 @@ const StepSlider = ({sliderSteps}) => {
         setPercentProgress(toPercent(spiciness));
     };
 
-    const handlerOnDown = () => dispatch(setDragging({dragging: true}));
+    const handlerOnDown = () => setDragging(true);
 
     const handlerOnMove = (e) => {
         if (dragging) {
@@ -40,7 +40,7 @@ const StepSlider = ({sliderSteps}) => {
             const spiciness = Math.round(getValueFromPercent(getPercentExtremum(e)));
             dispatch(setSpicinessFilter({spiciness}));
             setPercentProgress(toPercent(spiciness));
-            dispatch(setDragging({dragging: false}));
+            setDragging(false);
         }
     }
 

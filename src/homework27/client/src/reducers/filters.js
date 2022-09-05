@@ -8,9 +8,6 @@ const filtersSlice = createSlice({
             noNuts: false,
             vegeterianOnly: false,
         },
-        stepSlider: {
-            dragging: false,
-        },
     },
     reducers: {
         setSpicinessFilter(state, action) {
@@ -22,12 +19,9 @@ const filtersSlice = createSlice({
         setVegeterianFilter(state, action) {
             state.filters.vegeterianOnly = action.payload.vegeterianOnly;
         },
-        setDragging(state, action) {
-            state.stepSlider.dragging = action.payload.dragging;
-        },
     },
 });
 
-export const {setSpicinessFilter, setNutsFilter, setVegeterianFilter, setDragging} = filtersSlice.actions;
+export const {setSpicinessFilter, setNutsFilter, setVegeterianFilter} = filtersSlice.actions;
 
 export default filtersSlice.reducer;

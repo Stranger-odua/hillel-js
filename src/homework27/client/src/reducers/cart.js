@@ -9,7 +9,6 @@ const cartSlice = createSlice({
         totalOrderPrice: 0,
     },
     reducers: {
-        // FIXME подумати над рефакторингом
         addProduct(state, action) {
             const isProduct = state.products.find((product) => product.id === action.payload.id);
 

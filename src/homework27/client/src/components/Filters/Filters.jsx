@@ -2,7 +2,6 @@ import './Filters.style.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { setNutsFilter, setVegeterianFilter } from '../../reducers/filters';
 import StepSlider from '../StepSlider';
-import { handlerOnMove } from '../StepSlider/StepSlider';
 
 const Filters = () => {
     const dispatch = useDispatch();
@@ -56,16 +55,6 @@ const Filters = () => {
                     </div>
                 </div>
             </div>
-            <button
-                style={ {color: '#fff'} }
-                onClick={ (e) => {
-                    console.log('click DELETE');
-                    window.mousemove = null;
-                    window.onmousemove = null;
-                } }
-            >
-                DELETE
-            </button>
         </div>
     );
 };

@@ -8,8 +8,8 @@ const ProductsGrid = ({products}) => {
         if (products) {
             return products
                 .filter((product) => filters.noNuts ? product.nuts === false : product)
-                .filter((product) => filters.vegeterianOnly ? product.isVegeterian === true : product);
-            // .filter((product) => product.spiciness <= filters.spiciness);
+                .filter((product) => filters.vegeterianOnly ? product.isVegeterian === true : product)
+                .filter((product) => product.spiciness <= filters.spiciness);
         }
     };
 

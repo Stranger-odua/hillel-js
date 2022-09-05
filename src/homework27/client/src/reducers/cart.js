@@ -52,7 +52,6 @@ const cartSlice = createSlice({
                         product.priceInAll = Math.floor((product.price * product.count) * 10) / 10;
                     }
 
-
                     const totalOrderPrice = state.products.reduce((acc, product) => {
                         acc += product.priceInAll;
                         return acc;
@@ -68,7 +67,7 @@ const cartSlice = createSlice({
         },
 
         setCartModalShow(state, action) {
-            state.showModal = action.payload;
+            state.showModal = action.payload.showModal;
         },
     },
 });

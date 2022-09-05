@@ -1,7 +1,8 @@
 import './Filters.style.css';
 import { useDispatch, useSelector } from 'react-redux';
-import { setSpicinessFilter, setNutsFilter, setVegeterianFilter } from '../../reducers/filters';
-import Slider from '../Slider';
+import { setNutsFilter, setVegeterianFilter } from '../../reducers/filters';
+import StepSlider from '../StepSlider';
+import { handlerOnMove } from '../StepSlider/StepSlider';
 
 const Filters = () => {
     const dispatch = useDispatch();
@@ -20,7 +21,7 @@ const Filters = () => {
                     <label className="filters__label">Max spiciness</label>
                     <div className="filters__slider">
 
-                        <Slider sliderSteps={ sliderSteps }/>
+                        <StepSlider sliderSteps={ sliderSteps }/>
 
                     </div>
                 </div>
@@ -55,6 +56,16 @@ const Filters = () => {
                     </div>
                 </div>
             </div>
+            <button
+                style={ {color: '#fff'} }
+                onClick={ (e) => {
+                    console.log('click DELETE');
+                    window.mousemove = null;
+                    window.onmousemove = null;
+                } }
+            >
+                DELETE
+            </button>
         </div>
     );
 };
